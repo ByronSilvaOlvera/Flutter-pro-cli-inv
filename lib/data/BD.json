@@ -1,0 +1,18 @@
+{
+    "productos" :{
+        "nombre" : ""
+    },
+    "Inventario" :{
+        "fecha" : "",
+        "descripcion" : "",
+        "productoId" : "",
+        "tipo" : "In-Out", 
+        "input" : "0",
+        "output": "0"
+    },
+    "cliente" : {
+        "nombre" :"",
+        "identificacion" : "",
+        "direccion" : ""        
+    }
+}
