@@ -1,7 +1,7 @@
 # fltestadobloc
 
 A new Flutter project.
-
+Vamos a probar bloc con estados 
 ## Getting Started
 
 This project is a starting point for a Flutter application.
