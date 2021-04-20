@@ -4,3 +4,4 @@
 
 
   part 'navigator_botton.dart';
+  part 'datatable_inv.dart';

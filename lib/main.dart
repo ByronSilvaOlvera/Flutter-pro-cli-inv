@@ -13,17 +13,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Material App',
       
-      // home: Scaffold(
-      //   appBar: AppBar(
-      //     title: Text('Material App Bar'),
-      //   ),
-      //   body: Center(
-      //     child: Container(
-      //       child: Text('Hola Byron'),
-      //     ),
-      //   ),
-      // ), 
-      
       //Zona de Rutas
       initialRoute: 'home',
       routes: appRoutesBy,

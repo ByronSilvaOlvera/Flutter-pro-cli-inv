@@ -1,5 +1,8 @@
 
+import 'package:fltestadobloc/pages/compra_page.dart';
 import 'package:fltestadobloc/pages/producto_page.dart';
+import 'package:fltestadobloc/pages/proveedor_page.dart';
+import 'package:fltestadobloc/pages/venta_page.dart';
 import 'package:flutter/material.dart';
 
 import 'cliente_page.dart';
@@ -33,6 +36,8 @@ class _HomePageState extends State<HomePage> {
           _itemBtnNavigator(Icon(Icons.account_circle_sharp), 'Cliente'),
           _itemBtnNavigator(Icon(Icons.add_shopping_cart_sharp), 'Producto'),
           _itemBtnNavigator(Icon(Icons.build_circle_outlined), 'Inventario'),
+          _itemBtnNavigator(Icon(Icons.verified_rounded), 'Venta'),
+          _itemBtnNavigator(Icon(Icons.settings_input_composite_rounded), 'Compra'),
                   
         ],
         onTap: (int i) => { 
@@ -60,9 +65,15 @@ class _HomePageState extends State<HomePage> {
     }else if( index == 2 ){
       return ProductoPage();
     }
-    // else if( index == 3 ){
-    //   return InventarioPage();
-    // }
+    else if( index == 3 ){
+      return ProveedorPage();
+    }
+    else if( index == 4 ){
+      return VentaPage();
+    }
+    else if( index == 5 ){
+      return CompraPage();
+    }
     else {
       return InventarioPage();
     } 

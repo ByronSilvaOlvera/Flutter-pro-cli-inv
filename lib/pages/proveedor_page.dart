@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-class ClientePage extends StatelessWidget {
+class ProveedorPage extends StatelessWidget {
   
 
   @override
@@ -9,16 +9,9 @@ class ClientePage extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(15.0),
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           //crossAxisAlignment: CrossAxisAlignment.start ,
           children: <Widget>[
-            SizedBox(
-              height: 40.0,
-              child: Text('Ingresar Cliente', 
-                style: TextStyle( fontSize:20.0 ),
-                textAlign: TextAlign.left,)
-            ),
-            
             _fomulario(),
           ],
           
@@ -35,8 +28,8 @@ class ClientePage extends StatelessWidget {
           width: 200.0,
           height: 120.0,
           child: CircleAvatar(
-            
-            child: Icon(Icons.person_add, size: 50.0, color: Colors.blue[100],),
+            backgroundColor: Colors.green[50],
+            child: Icon(Icons.person_add_outlined, size: 50.0, color: Colors.green.shade600,  ),
           ),
         ),
         

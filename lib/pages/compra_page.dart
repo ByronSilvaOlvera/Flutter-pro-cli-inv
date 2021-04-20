@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-class ClientePage extends StatelessWidget {
+class CompraPage extends StatelessWidget {
   
 
   @override
