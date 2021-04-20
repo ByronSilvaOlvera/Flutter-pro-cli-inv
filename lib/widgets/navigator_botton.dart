@@ -1,7 +1,13 @@
 
 part of 'widgets.dart';
 
-class NavigationBotton extends StatelessWidget {
+class NavigationBotton extends StatefulWidget {
+  @override
+  _NavigationBottonState createState() => _NavigationBottonState();
+}
+
+class _NavigationBottonState extends State<NavigationBotton> {
+  
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +25,12 @@ class NavigationBotton extends StatelessWidget {
     );
   }
 
-
   BottomNavigationBarItem _itemBtnNavigator(Icon icon, String name){
     return BottomNavigationBarItem(
       icon: icon,
       label: name,
-      backgroundColor: Colors.amberAccent,      
+      backgroundColor: Colors.amberAccent,
+
     );
   }
-
-
-
 }

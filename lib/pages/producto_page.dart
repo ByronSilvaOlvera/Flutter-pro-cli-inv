@@ -7,11 +7,8 @@ class ProductoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Producto'),
-      ),
-      body: Text('Producto'),
+    return  Container(
+      child: Text('Producto'),
     );
   }
 }
