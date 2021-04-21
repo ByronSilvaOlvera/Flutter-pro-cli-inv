@@ -19,6 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int index = 0 ;
+  PageController _pageController;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,9 @@ class _HomePageState extends State<HomePage> {
         title: Text('Sistema de Logistico'),
       ),
 
-      body: _setbody(),
+      body: SingleChildScrollView(
+        child: _setbody() ,
+      ),
 
       //bottomNavigationBar: NavigationBotton()
       bottomNavigationBar:BottomNavigationBar(
@@ -40,6 +43,8 @@ class _HomePageState extends State<HomePage> {
           _itemBtnNavigator(Icon(Icons.settings_input_composite_rounded), 'Compra'),
                   
         ],
+        currentIndex: index ,
+        selectedItemColor: Colors.amber[800],
         onTap: (int i) => { 
           setState( () {
             index = i ;            
@@ -60,6 +65,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _setbody() {
+      _pageController.animateToPage(
+        index, 
+        duration: Duration(milliseconds: 500), 
+        curve: Curves.easeInOut
+      );
+      
     if( index == 1) {
       return ClientePage();
     }else if( index == 2 ){
