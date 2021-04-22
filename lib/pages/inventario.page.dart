@@ -90,7 +90,7 @@ class InventarioPage extends StatelessWidget {
         children: [
           Center(child: Text( 'Selecciona un producto'),),
           IconButton(
-            icon: Icon(Icons.ac_unit), 
+            icon: Icon(Icons.add_shopping_cart_sharp), 
             onPressed: () => {},
           )
         ],

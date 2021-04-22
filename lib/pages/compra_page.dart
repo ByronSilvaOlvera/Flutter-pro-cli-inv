@@ -39,14 +39,14 @@ class CompraPage extends StatelessWidget {
           children: [
             Text('Selecciona un Producto'),
             IconButton(
-              icon: const Icon(Icons.add_circle_outline),
+              icon: const Icon(Icons.add_shopping_cart_sharp),
               tooltip: 'Increase volume by 10',
               onPressed: () {},
             )
           ],
         ),
-        SizedBox(
-          
+        
+        SizedBox(          
           height: 300.0,
           child: Container(
             child: TablaWidget(),
