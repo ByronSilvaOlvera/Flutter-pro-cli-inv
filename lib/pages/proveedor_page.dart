@@ -13,6 +13,7 @@ class ProveedorPage extends StatelessWidget {
           //crossAxisAlignment: CrossAxisAlignment.start ,
           children: <Widget>[
             _fomulario(),
+            _botonEnvioData(),
           ],
           
         ),
@@ -86,6 +87,18 @@ class ProveedorPage extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _botonEnvioData(){
+    return Container(
+      child: MaterialButton(
+        onPressed: ()=>{},
+        child: Text('Save', style: TextStyle( fontSize: 20.0, color: Colors.green[50] ), ),
+        color: Colors.green.shade700,
+        padding: EdgeInsets.symmetric(horizontal: 4.0 ),
+      ),
+      margin: EdgeInsets.all(10.0),
     );
   }
 

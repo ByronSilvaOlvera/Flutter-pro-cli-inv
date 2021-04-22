@@ -15,7 +15,7 @@ class VentaPage extends StatelessWidget {
           children: <Widget>[
             SizedBox(
               height: 40.0,
-              child: Text('Ingresar Cliente', 
+              child: Text('Ingreso Venta ', 
                 style: TextStyle( fontSize:20.0 ),
                 textAlign: TextAlign.left,)
             ),

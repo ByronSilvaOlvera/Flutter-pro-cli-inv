@@ -9,14 +9,19 @@ class ProductoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Container(
       padding: EdgeInsets.all(18.0),
-      child: _formularioProducto(),
+      child: Column(
+        children : [
+          _formularioProducto(),
+          _botonEnvioData(),
+        ]
+      ) 
+        
     );
   }
 
   Widget _formularioProducto(){
     return Column(
       children: [
-
         SizedBox(
           width: 200.0,
           height: 120.0,
@@ -59,6 +64,18 @@ class ProductoPage extends StatelessWidget {
             ),
           ),
       ],
+    );
+  }
+
+  Widget _botonEnvioData(){
+    return Container(
+      child: MaterialButton(
+        onPressed: ()=>{},
+        child: Text('Save', style: TextStyle( fontSize: 20.0, color: Colors.orange[100] ), ),
+        color: Colors.orangeAccent.shade700,
+        padding: EdgeInsets.symmetric(horizontal: 4.0 ),
+      ),
+      margin: EdgeInsets.all(10.0),
     );
   }
 

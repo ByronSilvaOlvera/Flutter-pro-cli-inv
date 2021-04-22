@@ -1,4 +1,4 @@
-import 'package:fltestadobloc/models/cliente.dart';
+//import 'package:fltestadobloc/models/cliente.dart';
 import 'package:flutter/material.dart';
 class ClientePage extends StatelessWidget {
   
@@ -31,17 +31,17 @@ class ClientePage extends StatelessWidget {
   }
 
   
-  _onGuardarCliente(){
-    final cliente = new Cliente({
-      nombreCtrl.text,
-      apellidoCtrl.text,
-      identidadCtrl.text,
-      direccionCtrl.text,
-      correoCtrl.text
-    }
-    );
+  // _onGuardarCliente(){
+  //   final cliente = new Cliente({
+  //     nombreCtrl.text,
+  //     apellidoCtrl.text,
+  //     identidadCtrl.text,
+  //     direccionCtrl.text,
+  //     correoCtrl.text
+  //   }
+  //   );
     
-  }
+  // }
 
 
   final nombreCtrl    = TextEditingController();
@@ -130,12 +130,6 @@ class ClientePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly ,
         children: [
           
-          ElevatedButton.icon
-          (     onPressed: ()=> {}, 
-                icon: Icon(Icons.home, size: 30.0,),
-                label: Text('Inicio'),
-          ),
-
           ElevatedButton.icon
           (     onPressed: ()=> {}, 
                 icon: Icon(Icons.save, size: 30.0,),

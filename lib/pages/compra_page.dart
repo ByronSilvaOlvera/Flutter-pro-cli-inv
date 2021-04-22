@@ -1,3 +1,4 @@
+import 'package:fltestadobloc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 class CompraPage extends StatelessWidget {
   
@@ -5,7 +6,6 @@ class CompraPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
- 
       child: Padding(
         padding: EdgeInsets.all(15.0),
         child: Column(
@@ -14,84 +14,58 @@ class CompraPage extends StatelessWidget {
           children: <Widget>[
             SizedBox(
               height: 40.0,
-              child: Text('Ingresar Cliente', 
+              child: Text('Compra Input', 
                 style: TextStyle( fontSize:20.0 ),
                 textAlign: TextAlign.left,)
             ),
             
-            _fomulario(),
+            _compraFormula(),
+
           ],
           
         ),
       ) 
       
     );
+
+
   }
 
-  Widget _fomulario(){
+  Widget _compraFormula(){
     return Column(
-      children: <Widget>[
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text('Selecciona un Producto'),
+            IconButton(
+              icon: const Icon(Icons.add_circle_outline),
+              tooltip: 'Increase volume by 10',
+              onPressed: () {},
+            )
+          ],
+        ),
         SizedBox(
-          width: 200.0,
-          height: 120.0,
-          child: CircleAvatar(
-            
-            child: Icon(Icons.person_add, size: 50.0, color: Colors.blue[100],),
+          
+          height: 300.0,
+          child: Container(
+            child: TablaWidget(),
           ),
         ),
-        
-        SizedBox(height: 15.0,),
-        TextField(
-            obscureText: true,
-            //controller: ,
-            decoration: InputDecoration(
-              icon: Icon(Icons.person),
-              border: OutlineInputBorder(),
-              labelText: 'Nombre',
-            ),
-          ),
-        SizedBox(height: 15.0,),
-        
-        
-        TextField(
-          obscureText: true,
-          decoration: InputDecoration(
-            icon: Icon(Icons.person_outline),
-            border: OutlineInputBorder(),
-            labelText: 'Apellido',
-          ),
-        ),
+      
+        Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end ,
+              crossAxisAlignment: CrossAxisAlignment.start ,
+              children: [
+                Text('SubTotal 0%: '),
+                Text('SubTotal 12: '),                                 
+                Text('Impuesto: '),
+                Text('Total: '),
+              ],),
+        )
 
-        SizedBox(height: 15.0,),
 
-        TextField(
-          obscureText: true,
-          decoration: InputDecoration(
-            icon: Icon(Icons.confirmation_number_outlined),
-            border: OutlineInputBorder(),
-            labelText: 'Identificacion',
-          ),
-        ),
-        SizedBox(height: 15.0,),
-
-        TextField(
-          obscureText: true,
-          decoration: InputDecoration(
-            icon: Icon(Icons.add_to_home_screen_sharp),
-            border: OutlineInputBorder(),
-            labelText: 'Direccion',
-          ),
-        ),
-        SizedBox(height: 15.0,),
-
-        TextField(
-          obscureText: true,
-          decoration: InputDecoration(
-            icon: Icon(Icons.email_outlined),
-            border: OutlineInputBorder(),
-            labelText: 'Correo',
-          ),
-        ),
       ],
     );
   }

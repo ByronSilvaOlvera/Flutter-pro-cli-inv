@@ -19,7 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int index = 0 ;
-  PageController _pageController;
+  //PageController _pageController;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
           _itemBtnNavigator(Icon(Icons.home)  , 'Home'),
           _itemBtnNavigator(Icon(Icons.account_circle_sharp), 'Cliente'),
           _itemBtnNavigator(Icon(Icons.add_shopping_cart_sharp), 'Producto'),
-          _itemBtnNavigator(Icon(Icons.build_circle_outlined), 'Inventario'),
+          _itemBtnNavigator(Icon(Icons.build_circle_outlined), 'Proveedor'),
           _itemBtnNavigator(Icon(Icons.verified_rounded), 'Venta'),
           _itemBtnNavigator(Icon(Icons.settings_input_composite_rounded), 'Compra'),
                   
@@ -65,11 +65,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _setbody() {
-      _pageController.animateToPage(
-        index, 
-        duration: Duration(milliseconds: 500), 
-        curve: Curves.easeInOut
-      );
+      // _pageController.animateToPage(
+      //   index, 
+      //   duration: Duration(milliseconds: 500), 
+      //   curve: Curves.easeInOut
+      // );
       
     if( index == 1) {
       return ClientePage();
