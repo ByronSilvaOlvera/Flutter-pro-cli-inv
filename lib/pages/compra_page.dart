@@ -38,10 +38,15 @@ class CompraPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text('Selecciona un Producto'),
-            IconButton(
-              icon: const Icon(Icons.add_shopping_cart_sharp),
-              tooltip: 'Increase volume by 10',
-              onPressed: () {},
+            CircleAvatar(
+              backgroundColor: Colors.orange.shade100  ,
+              radius: 30.0,
+              child: IconButton(
+                icon: const Icon(Icons.add_shopping_cart_sharp),
+                tooltip: 'Increase volume by 10',
+                color: Colors.orange,
+                onPressed: () {},
+              ),
             )
           ],
         ),

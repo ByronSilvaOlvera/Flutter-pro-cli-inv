@@ -89,9 +89,19 @@ class InventarioPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly ,
         children: [
           Center(child: Text( 'Selecciona un producto'),),
-          IconButton(
-            icon: Icon(Icons.add_shopping_cart_sharp), 
-            onPressed: () => {},
+          CircleAvatar(
+            backgroundColor: Colors.orange.shade100  ,
+            radius: 30.0,
+
+            child: IconButton(
+              icon: Icon(Icons.add_shopping_cart_sharp), 
+              hoverColor: Colors.green,
+              color: Colors.orange,
+              highlightColor: Colors.redAccent.shade100,
+              visualDensity: VisualDensity.comfortable ,            
+              onPressed: () => {},
+            ),
+          
           )
         ],
       ),

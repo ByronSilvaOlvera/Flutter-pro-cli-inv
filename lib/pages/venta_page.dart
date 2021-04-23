@@ -37,10 +37,15 @@ class VentaPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text('Selecciona un Producto'),
-            IconButton(
-              icon: const Icon(Icons.add_circle_outline),
-              tooltip: 'Increase volume by 10',
-              onPressed: () {},
+            CircleAvatar(
+              radius: 30.0,
+              backgroundColor: Colors.yellow,
+              foregroundColor: Colors.green,
+              child: IconButton(
+                icon: const Icon(Icons.add_circle_outline),
+                tooltip: 'Increase volume by 10',
+                onPressed: () {},
+              )
             )
           ],
         ),
