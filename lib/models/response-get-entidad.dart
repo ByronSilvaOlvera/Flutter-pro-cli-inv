@@ -1,4 +1,3 @@
-//import 'dart:convert';
 
 class EntidadResponse<T> {
     EntidadResponse({
@@ -9,13 +8,14 @@ class EntidadResponse<T> {
 
     bool ok;
     String msg;
-    List<T> entidad;
+    dynamic entidad;
 
     factory EntidadResponse.fromJson(Map<String, dynamic> json) => EntidadResponse (
         ok: json["ok"],
         msg: json["msg"],
        //entidad: List<T>.from(json["entidad"])
-        entidad: json["entidad"]
+        entidad: json["entidad"],
+        //json.cast()
     );
   
 }

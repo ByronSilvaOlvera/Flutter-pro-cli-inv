@@ -1,9 +1,11 @@
 
+import 'package:flutter/material.dart';
+
 import 'package:fltestadobloc/pages/compra_page.dart';
+import 'package:fltestadobloc/pages/list-pages/list-option.dart';
 import 'package:fltestadobloc/pages/producto_page.dart';
 import 'package:fltestadobloc/pages/proveedor_page.dart';
 import 'package:fltestadobloc/pages/venta_page.dart';
-import 'package:flutter/material.dart';
 
 import 'cliente_page.dart';
 import 'inventario.page.dart';
@@ -25,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sistema de Logistico'),
+        title: Text('Sistema de Logistico'),        
       ),
 
       body: SingleChildScrollView(
@@ -36,11 +38,12 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar:BottomNavigationBar(
         items:  <BottomNavigationBarItem>[
           _itemBtnNavigator(Icon(Icons.home)  , 'Home'),
-          _itemBtnNavigator(Icon(Icons.account_circle_sharp), 'Cliente'),
+          _itemBtnNavigator(Icon(Icons.person_add), 'Cliente'),
           _itemBtnNavigator(Icon(Icons.add_shopping_cart_sharp), 'Producto'),
           _itemBtnNavigator(Icon(Icons.build_circle_outlined), 'Proveedor'),
           _itemBtnNavigator(Icon(Icons.verified_rounded), 'Venta'),
           _itemBtnNavigator(Icon(Icons.settings_input_composite_rounded), 'Compra'),
+          _itemBtnNavigator(Icon(Icons.list), 'Vistas'),
                   
         ],
         currentIndex: index ,
@@ -84,6 +87,9 @@ class _HomePageState extends State<HomePage> {
     }
     else if( index == 5 ){
       return CompraPage();
+    }
+    else if( index == 6 ){
+      return ListaOpcionesBar();
     }
     else {
       return InventarioPage();
