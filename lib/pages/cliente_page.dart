@@ -1,5 +1,9 @@
-//import 'package:fltestadobloc/models/cliente.dart';
+
+
+import 'package:fltestadobloc/models/cliente.dart';
+import 'package:fltestadobloc/services/cliente-service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 class ClientePage extends StatelessWidget {
   
   @override
@@ -20,7 +24,7 @@ class ClientePage extends StatelessWidget {
                 
                 _fomulario(),
                 
-                _buttonFormulario(),
+                _buttonFormulario(context),
 
               ],
               
@@ -31,17 +35,16 @@ class ClientePage extends StatelessWidget {
   }
 
   
-  // _onGuardarCliente(){
-  //   final cliente = new Cliente({
-  //     nombreCtrl.text,
-  //     apellidoCtrl.text,
-  //     identidadCtrl.text,
-  //     direccionCtrl.text,
-  //     correoCtrl.text
-  //   }
-  //   );
+  _onGuardarCliente(){
+    return Cliente(
+      nombre        : nombreCtrl.text,
+      apellido      : apellidoCtrl.text,
+      identificacion: identidadCtrl.text,
+      direccion     : direccionCtrl.text,
+      correo        : correoCtrl.text    
+    );
     
-  // }
+  }
 
 
   final nombreCtrl    = TextEditingController();
@@ -123,7 +126,8 @@ class ClientePage extends StatelessWidget {
     );
   }
 
-  Widget _buttonFormulario(){
+  Widget _buttonFormulario(BuildContext context){
+    final servCliente = Provider.of<ClienteServices>( context, listen: false);
     return SizedBox(
       height: 80.0,
       child: Row(
@@ -131,7 +135,27 @@ class ClientePage extends StatelessWidget {
         children: [
           
           ElevatedButton.icon
-          (     onPressed: ()=> {}, 
+          (   onPressed: () async  {
+                print( _onGuardarCliente() );
+                print(' click 001 ');
+                if ( await servCliente.addCliente( _onGuardarCliente() ) )
+                {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,                        
+                        children: [                          
+                          Text('Datos clientes almacenados..!'),
+                          Icon(Icons.done, color : Colors.white ),
+                        
+                        ],
+                      ),
+                      backgroundColor: Colors.blueAccent.shade200,
+                      
+                    )
+                  );
+                }
+              }, 
                 icon: Icon(Icons.save, size: 30.0,),
                 label: Text('Guardar'),
           ),

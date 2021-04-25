@@ -2,5 +2,12 @@
 import 'dart:io';
 
 class Environment {
-  static String apiUrl = Platform.isAndroid ? 'http://192.168.1.3:3004/api' : 'http://localhost:3004/api' ;
+  static String apiUrl = Platform.isAndroid ?  
+  'http://192.168.1.22:8090/api' 
+  : 
+  'http://localhost:3000/api' ;
+  // static String apiUrl = Platform.isAndroid ? 
+  // 'http://10.0.2.2:3000/api' 
+  // : 
+  // 'http://localhost:3000/api' ;
 }
