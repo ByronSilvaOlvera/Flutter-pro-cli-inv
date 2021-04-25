@@ -2,6 +2,7 @@
 
 import 'package:fltestadobloc/models/cliente.dart';
 import 'package:fltestadobloc/services/cliente-service.dart';
+import 'package:fltestadobloc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 class ClientePage extends StatelessWidget {
@@ -138,32 +139,38 @@ class ClientePage extends StatelessWidget {
           (   onPressed: () async  {
                 print( _onGuardarCliente() );
                 print(' click 001 ');
-                if ( await servCliente.addCliente( _onGuardarCliente() ) )
+                final response = await servCliente.addCliente( _onGuardarCliente() );
+                if ( response.ok )
                 {
+                  ScaffoldMessenger.of(context).showSnackBar( 
+                   MsgSnackBar( msg: 'Cliente alamcenado exitoso..!', tipo: 1, ).build(context) 
+                  );
+                }else{
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,                        
-                        children: [                          
-                          Text('Datos clientes almacenados..!'),
-                          Icon(Icons.done, color : Colors.white ),
-                        
-                        ],
-                      ),
-                      backgroundColor: Colors.blueAccent.shade200,
-                      
-                    )
+                    _mensajeBotton(Colors.redAccent.shade200, Icons.error_outline,response.msg)
                   );
                 }
               }, 
-                icon: Icon(Icons.save, size: 30.0,),
-                label: Text('Guardar'),
-          ),
-          
-
+              icon: Icon(Icons.save, size: 30.0,),
+              label: Text('Guardar'),
+          ),          
         ],
       ) ,
     );
   }
+
+  Widget _mensajeBotton(Color color, IconData iconData,String msg ){
+    return SnackBar(
+        content: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,                        
+          children: [                          
+            Text(msg),
+            Icon(iconData, color : Colors.white ),          
+          ],
+        ),
+        backgroundColor: color, //Colors.blueAccent.shade200,        
+      );
+  }
+
 
 }
