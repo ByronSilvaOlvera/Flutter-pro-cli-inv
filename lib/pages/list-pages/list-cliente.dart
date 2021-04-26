@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:fltestadobloc/models/cliente.dart';
 import 'package:fltestadobloc/pages/home_page.dart';
+import 'package:fltestadobloc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 
@@ -77,7 +78,8 @@ class _ListadoClienteState extends State<ListadoCliente> {
               color  : clientes[index].estadoregistro == "A" ? Colors.red.shade200 : Colors.green.shade200,
               icon   : clientes[index].estadoregistro == "A" ? Icons.person_remove_outlined : Icons.emoji_people_sharp,
               foregroundColor: clientes[index].estadoregistro == "A" ? Colors.red.shade900 : Colors.green.shade900,
-              onTap: () => {},
+              onTap: () => _activarDesactivarCliente(clientes[index].uid,
+                clientes[index].estadoregistro == "A" ? 'I' : 'A')                           
             ),
           
             IconSlideAction(
@@ -101,11 +103,23 @@ class _ListadoClienteState extends State<ListadoCliente> {
     
   }
 
+  _activarDesactivarCliente (String id, String estado) async {
+    final respuesta = await servCliente.activarEntidad(id, estado);
+    if( respuesta.ok && estado == 'A' ){
+      ScaffoldMessenger.of(context).showSnackBar( 
+          MsgSnackBar( msg: 'Cliente Activado..!', tipo: 1, ).build(context));
+      setState(() {});
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar( 
+          MsgSnackBar( msg: 'Cliente Desactivado..!', tipo: 0, ).build(context));
+      setState(() {});
+    }
+  }
+
+
   void _cargarCliente() async {
     clientes = await  servCliente.getEntidad();
-    setState(() {
-      
-    });
+    setState(() {});
   }
 
 }

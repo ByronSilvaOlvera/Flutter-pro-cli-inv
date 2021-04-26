@@ -11,6 +11,33 @@ class ClienteServices with ChangeNotifier {
 
   final hostService = '${Environment.apiUrl}/cliente';
 
+  Future<EntidadResponse> activarEntidad(String id, String  estado ) async {
+    try {
+      final uri = Uri.parse('$hostService/edit') ;
+      final resp = await http.post(uri, body: jsonEncode({ "uid" : id , "estadoregistro" : estado }) ,
+      headers: {
+        'Content-Type' : 'application/json'
+      });
+
+      final response = EntidadResponse.fromJson( json.decode(resp.body) );
+      if(resp.statusCode == 200 ){
+        if( response.ok ){
+          return EntidadResponse(ok: true); 
+        }
+        else{
+          return EntidadResponse(ok: true, msg:  'Error Conectividad');
+        }
+      }
+      else{
+        return EntidadResponse(ok: false , msg :response.msg );
+      }
+
+    } catch (e) {
+      print('Error Servicio Cliente $e');
+      return EntidadResponse(ok: false);
+    }
+  }
+
   Future<EntidadResponse> editEntidad( Cliente entidad ) async {
     try {
       
