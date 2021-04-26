@@ -30,9 +30,8 @@ class _HomePageState extends State<HomePage> {
         title: Text('Sistema de Logistico'),        
       ),
 
-      body: SingleChildScrollView(
-        child: _setbody() ,
-      ),
+      body: _setbody() ,
+      
 
       //bottomNavigationBar: NavigationBotton()
       bottomNavigationBar:BottomNavigationBar(
@@ -40,10 +39,10 @@ class _HomePageState extends State<HomePage> {
           _itemBtnNavigator(Icon(Icons.home)  , 'Home'),
           _itemBtnNavigator(Icon(Icons.person_add), 'Cliente'),
           _itemBtnNavigator(Icon(Icons.add_shopping_cart_sharp), 'Producto'),
-          _itemBtnNavigator(Icon(Icons.build_circle_outlined), 'Proveedor'),
+          _itemBtnNavigator(Icon(Icons.person_add_alt_1), 'Proveedor'),
           _itemBtnNavigator(Icon(Icons.verified_rounded), 'Venta'),
           _itemBtnNavigator(Icon(Icons.settings_input_composite_rounded), 'Compra'),
-          _itemBtnNavigator(Icon(Icons.list), 'Vistas'),
+          _itemBtnNavigator(Icon(Icons.list), 'Listados'),
                   
         ],
         currentIndex: index ,

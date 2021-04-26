@@ -18,11 +18,11 @@ class _ListaOpcionesBarState extends State<ListaOpcionesBar> with TickerProvider
   }
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Container(      
       child: Column(
-        children: [
-          SizedBox(
-            //height: 100.0,
+        children: <Widget>[
+          SizedBox(  
+            height: 50.0,         
             child:TabBar(
               indicatorColor: Colors.blueAccent,
               labelColor: Colors.black,
@@ -47,12 +47,14 @@ class _ListaOpcionesBarState extends State<ListaOpcionesBar> with TickerProvider
               ],
             ),
           ),
-          SizedBox(
-            height: 300.0,
+          Expanded(
+            
+            //width: MediaQuery.of(context).size.width,
+            //height: MediaQuery.of(context).size.height,
             child: TabBarView(
               controller: _tabController,
               children:  <Widget>[
-                Center(
+                Container(
                   child: ListadoCliente(),
                 ),
                 Center(

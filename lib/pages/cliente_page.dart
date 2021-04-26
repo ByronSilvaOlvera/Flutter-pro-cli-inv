@@ -12,24 +12,26 @@ class ClientePage extends StatelessWidget {
     return Container(
         child: Padding(
           padding: EdgeInsets.all(15.0),
-          child: Column(
-              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //crossAxisAlignment: CrossAxisAlignment.start ,
-              children: <Widget>[
-                SizedBox(
-                  height: 40.0,
-                  child: Text('Ingresar Cliente', 
-                    style: TextStyle( fontSize:20.0 ),
-                    textAlign: TextAlign.left,)
-                ),
-                
-                _fomulario(),
-                
-                _buttonFormulario(context),
+          child: SingleChildScrollView(
+                child: Column(
+                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //crossAxisAlignment: CrossAxisAlignment.start ,
+                children: <Widget>[
+                  SizedBox(
+                    height: 40.0,
+                    child: Text('Ingresar Cliente', 
+                      style: TextStyle( fontSize:20.0 ),
+                      textAlign: TextAlign.left,)
+                  ),
+                  
+                  _fomulario(),
+                  
+                  _buttonFormulario(context),
 
-              ],
-              
-            ),
+                ],
+                
+              ),
+          ),
           ),
                 
       );
