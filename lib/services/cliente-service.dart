@@ -11,7 +11,7 @@ class ClienteServices with ChangeNotifier {
 
   final hostService = '${Environment.apiUrl}/cliente';
 
-  Future<EntidadResponse> editCliente( Cliente entidad ) async {
+  Future<EntidadResponse> editEntidad( Cliente entidad ) async {
     try {
       
       final uri = Uri.parse('$hostService/edit') ;
@@ -41,7 +41,7 @@ class ClienteServices with ChangeNotifier {
     }
   }
 
-  Future<Cliente> getClienteOne( String id ) async {
+  Future<Cliente> getEntidadOne( String id ) async {
     try {
       final uri = Uri.parse('$hostService/getone') ;
       final resp = await http.post(uri, body: jsonEncode({"id" : id}),
@@ -51,9 +51,8 @@ class ClienteServices with ChangeNotifier {
 
       final entidadResponse = EntidadResponse.fromJson( json.decode (resp.body) );
       if( resp.statusCode == 200){
-        print(entidadResponse.entidad );
-        final jsonResp = { "clientes" : entidadResponse.entidad };
-        return clienteListaFromJson( json.encode( jsonResp ) ).clientes.first;        
+             
+        return clienteFromJson( json.encode( entidadResponse.entidad ) );        
 
       }else if( resp.statusCode == 404 ){
         print(entidadResponse.msg);
@@ -70,7 +69,7 @@ class ClienteServices with ChangeNotifier {
     }
   }
 
-  Future<List<Cliente>> getCliente( ) async {
+  Future<List<Cliente>> getEntidad( ) async {
     try {
       final uri = Uri.parse('$hostService/get') ;
       final resp = await http.get(uri , 
@@ -91,7 +90,7 @@ class ClienteServices with ChangeNotifier {
     }
   }
 
-  Future<EntidadResponse> addCliente( Cliente entidad ) async {
+  Future<EntidadResponse> createEntidad( Cliente entidad ) async {
     try {
       final uri = Uri.parse('$hostService/add') ;
       final resp = await http.post(uri, body: jsonEncode(entidad) , 

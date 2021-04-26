@@ -100,7 +100,7 @@ class _ListadoClienteState extends State<ListadoCliente> {
   }
 
   void _cargarCliente() async {
-    clientes = await  servCliente.getCliente();
+    clientes = await  servCliente.getEntidad();
     setState(() {
       
     });

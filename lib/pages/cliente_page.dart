@@ -1,10 +1,10 @@
 
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:fltestadobloc/models/cliente.dart';
 import 'package:fltestadobloc/services/cliente-service.dart';
 import 'package:fltestadobloc/widgets/widgets.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 class ClientePage extends StatefulWidget {
   final String id;
   ClientePage({ this.id = ''});
@@ -26,31 +26,27 @@ class _ClientePageState extends State<ClientePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Padding(
-          padding: EdgeInsets.all(15.0),
-          child: SingleChildScrollView(
-                child: Column(
-                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //crossAxisAlignment: CrossAxisAlignment.start ,
-                children: <Widget>[
-                  SizedBox(
-                    height: 40.0,
-                    child: Text('Ingresar Cliente', 
-                      style: TextStyle( fontSize:20.0 ),
-                      textAlign: TextAlign.left,)
-                  ),
-                  
-                  _fomulario(),
-                  
-                  _buttonFormulario(context),
-
-                ],
-                
+      child: Padding(
+        padding: EdgeInsets.all(15.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 40.0,
+                child: Text('Ingresar Cliente', 
+                  style: TextStyle( fontSize:20.0 ),
+                  textAlign: TextAlign.left,)
               ),
+              
+              _fomulario(),
+              
+              _buttonFormulario(context),
+
+            ],            
           ),
-          ),
-                
-      );
+        ),
+      ),                
+    );
   }
 
   _onGuardarCliente(){
@@ -68,14 +64,15 @@ class _ClientePageState extends State<ClientePage> {
     print(widget.id);
     if( widget.id.isNotEmpty ){
       
-      _cliente = await _servCliente.getClienteOne( widget.id );
+      _cliente = await _servCliente.getEntidadOne( widget.id );
       if( _cliente != null ){
         nombreCtrl.text    = _cliente.nombre;
         apellidoCtrl.text  = _cliente.apellido;
         identidadCtrl.text = _cliente.identificacion;
         direccionCtrl.text = _cliente.direccion;
         correoCtrl.text    = _cliente.correo;    
-        //widget.id = '';
+        _nombreMetodo = 'Editar';
+        _guardar = false;
         setState(() {});
       }
     }
@@ -161,36 +158,60 @@ class _ClientePageState extends State<ClientePage> {
   }
 
   Widget _buttonFormulario(BuildContext context){
-    final servCliente = Provider.of<ClienteServices>( context, listen: false);
+    
     return SizedBox(
       height: 80.0,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly ,
         children: [
           
-          ElevatedButton.icon
-          (   onPressed: () async  {
-                print( _onGuardarCliente() );
-                print(' click 001 ');
-                final response = await servCliente.addCliente( _onGuardarCliente() );
-                if ( response.ok )
-                {
-                  ScaffoldMessenger.of(context).showSnackBar( 
-                   MsgSnackBar( msg: 'Cliente alamcenado exitoso..!', tipo: 1, ).build(context) 
-                  );
-                }else{
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    _mensajeBotton(Colors.redAccent.shade200, Icons.error_outline,response.msg)
-                  );
-                }
-              }, 
-              icon: Icon(Icons.save, size: 30.0,),
-              label: Text('Guardar'),
+          ElevatedButton.icon(   
+            onPressed: () => _metodoAlmacenamiento(context) , 
+            icon: Icon(Icons.save, size: 30.0,),
+            label: Text(_nombreMetodo),
           ),          
         ],
       ) ,
     );
   }
+
+  bool _guardar = true;
+  String _nombreMetodo = 'Guardar';
+  _metodoAlmacenamiento( BuildContext context ) async {
+
+    final servCliente = Provider.of<ClienteServices>( context, listen: false);
+    if( _guardar ){
+      final response = await servCliente.createEntidad( _onGuardarCliente() );
+      
+      if ( response.ok )
+      {
+        ScaffoldMessenger.of(context).showSnackBar( 
+          MsgSnackBar( msg: 'Cliente alamcenado exitoso..!', tipo: 1, ).build(context) 
+        );
+      }else{
+        ScaffoldMessenger.of(context).showSnackBar(
+          _mensajeBotton(Colors.redAccent.shade200, Icons.error_outline,response.msg)
+        );
+      }
+
+    }else{
+      final response = await servCliente.editEntidad( _onGuardarCliente() );
+      
+      if( response.ok ){
+        ScaffoldMessenger.of(context).showSnackBar( 
+          MsgSnackBar( msg: 'Cliente Actualizado exitoso..!', tipo: 1, ).build(context) 
+        );
+      }else{
+        ScaffoldMessenger.of(context).showSnackBar(
+          _mensajeBotton(Colors.redAccent.shade200, Icons.error_outline,response.msg)
+        );
+      }
+
+    }
+    _guardar = true;
+    _nombreMetodo = 'Guardar';
+  }
+
 
   Widget _mensajeBotton(Color color, IconData iconData,String msg ){
     return SnackBar(
