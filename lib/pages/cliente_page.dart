@@ -39,7 +39,7 @@ class _ClientePageState extends State<ClientePage> {
               ),
               
               _fomulario(),
-              
+              SizedBox(height: 20.0,),
               _buttonFormulario(context),
 
             ],            
@@ -157,21 +157,16 @@ class _ClientePageState extends State<ClientePage> {
     );
   }
 
-  Widget _buttonFormulario(BuildContext context){
-    
+  Widget _buttonFormulario(BuildContext context){    
     return SizedBox(
-      height: 80.0,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly ,
-        children: [
-          
-          ElevatedButton.icon(   
-            onPressed: () => _metodoAlmacenamiento(context) , 
-            icon: Icon(Icons.save, size: 30.0,),
-            label: Text(_nombreMetodo),
-          ),          
-        ],
-      ) ,
+      height: 50.0,
+      width: 200.0,
+      child:           
+        ElevatedButton.icon(   
+          onPressed: () => _metodoAlmacenamiento(context) , 
+          icon: Icon(Icons.save, size: 30.0,),
+          label: Text(_nombreMetodo),
+        ),
     );
   }
 
