@@ -1,5 +1,5 @@
 
-class EntidadResponse<T> {
+class EntidadResponse {
     EntidadResponse({
         this.ok,
         this.msg,
