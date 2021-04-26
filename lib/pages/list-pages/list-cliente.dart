@@ -65,11 +65,10 @@ class _ListadoClienteState extends State<ListadoCliente> {
             color: Colors.blue.shade50,
             child: ListTile(
               title   : Text(clientes[index].nombre +' '+ clientes[index].apellido ),
-              subtitle: Text('Identidad #: ${ clientes[index].identificacion}') ,
+              subtitle: Text('Identificación: ${ clientes[index].identificacion}') ,
               leading : Icon(Icons.account_circle, color: Colors.blue.shade700, size: 40.0,),
               trailing: clientes[index].estadoregistro != "A" ? Icon(Icons.do_disturb_on_rounded, color: Colors.red.shade700 ) :
                             Icon(Icons.done_all, color: Colors.green.shade700 ) ,
-            
             )
           ),
           actions: <Widget>[
@@ -108,11 +107,11 @@ class _ListadoClienteState extends State<ListadoCliente> {
     if( respuesta.ok && estado == 'A' ){
       ScaffoldMessenger.of(context).showSnackBar( 
           MsgSnackBar( msg: 'Cliente Activado..!', tipo: 1, ).build(context));
-      setState(() {});
+      _cargarCliente();
     }else{
       ScaffoldMessenger.of(context).showSnackBar( 
           MsgSnackBar( msg: 'Cliente Desactivado..!', tipo: 0, ).build(context));
-      setState(() {});
+      _cargarCliente();
     }
   }
 
