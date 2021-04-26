@@ -5,8 +5,24 @@ import 'package:fltestadobloc/services/cliente-service.dart';
 import 'package:fltestadobloc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-class ClientePage extends StatelessWidget {
-  
+class ClientePage extends StatefulWidget {
+  final String id;
+  ClientePage({ this.id = ''});
+  @override
+  _ClientePageState createState() => _ClientePageState();
+}
+
+class _ClientePageState extends State<ClientePage> {
+  final _servCliente = new ClienteServices();
+
+  Cliente _cliente;
+
+  @override
+  void initState() { 
+    _onIniciarCliente();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,7 +53,6 @@ class ClientePage extends StatelessWidget {
       );
   }
 
-  
   _onGuardarCliente(){
     return Cliente(
       nombre        : nombreCtrl.text,
@@ -49,6 +64,22 @@ class ClientePage extends StatelessWidget {
     
   }
 
+  _onIniciarCliente() async {
+    print(widget.id);
+    if( widget.id.isNotEmpty ){
+      
+      _cliente = await _servCliente.getClienteOne( widget.id );
+      if( _cliente != null ){
+        nombreCtrl.text    = _cliente.nombre;
+        apellidoCtrl.text  = _cliente.apellido;
+        identidadCtrl.text = _cliente.identificacion;
+        direccionCtrl.text = _cliente.direccion;
+        correoCtrl.text    = _cliente.correo;    
+        //widget.id = '';
+        setState(() {});
+      }
+    }
+  }
 
   final nombreCtrl    = TextEditingController();
   final apellidoCtrl  = TextEditingController();
@@ -174,5 +205,10 @@ class ClientePage extends StatelessWidget {
       );
   }
 
+  @override
+  void dispose() {    
+    //widget.id = '';
+    super.dispose();
+  }
 
 }

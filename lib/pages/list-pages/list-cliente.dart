@@ -2,6 +2,7 @@
 import 'dart:ui';
 
 import 'package:fltestadobloc/models/cliente.dart';
+import 'package:fltestadobloc/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 
@@ -75,21 +76,22 @@ class _ListadoClienteState extends State<ListadoCliente> {
                 color: Colors.red.shade200,
                 icon: Icons.person_remove_outlined,
                 foregroundColor: Colors.red.shade900,
-                onTap: () => print('Borrar'),
+                onTap: () => {},
               ),
               IconSlideAction(
                 caption: 'Editar',
                 color: Colors.lightBlue.shade200,
                 icon: Icons.drive_file_rename_outline,
                 foregroundColor: Colors.lightBlue.shade900,
-                onTap: () => print('File'),
-              ),
-              // IconSlideAction(
-              //   caption: 'File',
-              //   color: Colors.pink,
-              //   icon: Icons.ac_unit_sharp,
-              //   onTap: () => print('File'),
-              // ),
+                onTap: () => {
+                  Navigator.pushReplacement(context,
+                    PageRouteBuilder(
+                      pageBuilder: ( _, __, ___) => HomePage(inicioIndex: 1, id:  clientes[index].uid, ),
+                      transitionDuration: Duration(milliseconds: 0)
+                    )
+                  )
+                },
+              ),             
             ]
           );
         }

@@ -32,16 +32,26 @@ class ClienteServices with ChangeNotifier {
 
   Future<Cliente> getClienteOne( String id ) async {
     try {
-      final uri = Uri.parse('$hostService/one') ;
-      final resp = await http.post(uri, body: jsonEncode({id : id}),
+      final uri = Uri.parse('$hostService/getone') ;
+      final resp = await http.post(uri, body: jsonEncode({"id" : id}),
       headers: {
         'Content-Type' : 'application/json'
       });
-      final clienteResponse = clienteFromJson(resp.body);
+
+      final clienteResponse = EntidadResponse<Cliente>.fromJson( json.decode (resp.body) );
       if( resp.statusCode == 200){
-        return clienteResponse;
+        print(clienteResponse.entidad );
+        final jsonResp = { "clientes" : clienteResponse.entidad };
+        return clienteListaFromJson( json.encode( jsonResp ) ).clientes.first;        
+
+      }else if( resp.statusCode == 404 ){
+        print(clienteResponse.msg);
+        return null;
+      
+      }else{
+        print(clienteResponse.msg);
+        return null ; 
       }
-      return null ; 
     } catch (e) {
       print('Error Servcio Cliente $e');
       return null;
@@ -55,12 +65,14 @@ class ClienteServices with ChangeNotifier {
             headers: {
               'Content-type' : 'application/json',       
             });
-
+      
       final responseCl = EntidadResponse<Cliente>.fromJson( json.decode(resp.body) );      
-      final j = { "clientes" : responseCl.entidad };
-      final clientes = clienteListaFromJson( json.encode( j )  );      
-
-      return clientes.clientes;
+      if( responseCl.ok ){
+        final jsonResp = { "clientes" : responseCl.entidad };
+        return clienteListaFromJson( json.encode( jsonResp )  ).clientes;      
+      }else{
+        return null;
+      }
     } catch (e) {
       print('Error Servcio Cliente $e');
       return null;

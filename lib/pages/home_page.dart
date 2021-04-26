@@ -14,14 +14,35 @@ import 'inventario.page.dart';
 //import 'package:fltestadobloc/widgets/widgets.dart';
 
 class HomePage extends StatefulWidget {
-  
+  final int inicioIndex;
+  final String id;
+  HomePage({ this.inicioIndex = 0, this.id});
+  int getIndex() => inicioIndex;
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   int index = 0 ;
-  //PageController _pageController;
+  bool local = false;
+  String _cliente;
+ 
+ @override
+  void initState() {
+
+    super.initState();
+    int intPagina = widget.getIndex();
+    if ( intPagina > 0 ){
+      index = intPagina;
+      _cliente = widget.id;
+    }
+  }
+
+  @override
+  void dispose() {
+    index = 0;
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +70,8 @@ class _HomePageState extends State<HomePage> {
         selectedItemColor: Colors.amber[800],
         onTap: (int i) => { 
           setState( () {
-            index = i ;            
+            index = i ;
+            local = true;        
           })
         },
       )
@@ -67,14 +89,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _setbody() {
-      // _pageController.animateToPage(
-      //   index, 
-      //   duration: Duration(milliseconds: 500), 
-      //   curve: Curves.easeInOut
-      // );
       
     if( index == 1) {
-      return ClientePage();
+      if( local ){
+        local = false;
+        return ClientePage();      
+      }else{
+        return ClientePage(id: _cliente,);
+      }
     }else if( index == 2 ){
       return ProductoPage();
     }
