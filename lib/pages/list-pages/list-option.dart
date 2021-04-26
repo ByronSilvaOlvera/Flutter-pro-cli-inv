@@ -24,10 +24,10 @@ class _ListaOpcionesBarState extends State<ListaOpcionesBar> with TickerProvider
           SizedBox(  
             height: 50.0,         
             child:TabBar(
-              indicatorColor: Colors.blueAccent,
-              labelColor: Colors.black,
+              indicatorColor: Colors.red,              
+              labelColor: Colors.orange,
               controller: _tabController,
-              
+              unselectedLabelColor: Colors.amber[500],
               tabs: <Widget>[
                 Tab(
                   icon: Icon(Icons.people_sharp),
@@ -48,9 +48,6 @@ class _ListaOpcionesBarState extends State<ListaOpcionesBar> with TickerProvider
             ),
           ),
           Expanded(
-            
-            //width: MediaQuery.of(context).size.width,
-            //height: MediaQuery.of(context).size.height,
             child: TabBarView(
               controller: _tabController,
               children:  <Widget>[
