@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 
 import 'package:fltestadobloc/services/cliente-service.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class ListadoCliente extends StatefulWidget {
   
@@ -41,7 +42,7 @@ class _ListadoClienteState extends State<ListadoCliente> {
               ),
             ),
             Expanded(
-              child : _listadoClientes(context)
+              child : _listadoClientes(context),
             ),
           ],
         ),
@@ -54,16 +55,42 @@ class _ListadoClienteState extends State<ListadoCliente> {
     return ListView.builder(
         itemCount: clientes.length ,
         itemBuilder: (context , int index){  
-          return Card( 
-            color: Colors.blue.shade50,
-            child: ListTile(
-              title: Text(clientes[index].nombre +' '+ clientes[index].apellido ),
-              subtitle: Text('Identidad #: ${ clientes[index].identificacion}') ,
-              leading: Icon(Icons.account_circle, color: 
-                Colors.blue.shade700, size: 40.0,),
-              //trailing: Icon(Icons.edit),
-            
-            )
+          return Slidable(
+            actionPane: SlidableScrollActionPane(),
+            actionExtentRatio: 1/3,
+            child: Card( 
+              color: Colors.blue.shade50,
+              child: ListTile(
+                title: Text(clientes[index].nombre +' '+ clientes[index].apellido ),
+                subtitle: Text('Identidad #: ${ clientes[index].identificacion}') ,
+                leading: Icon(Icons.account_circle, color: 
+                  Colors.blue.shade700, size: 40.0,),
+                //trailing: Icon(Icons.edit),
+              
+              )
+            ),
+            actions: <Widget>[
+              IconSlideAction(
+                caption: 'Desactivar',
+                color: Colors.red.shade200,
+                icon: Icons.person_remove_outlined,
+                foregroundColor: Colors.red.shade900,
+                onTap: () => print('Borrar'),
+              ),
+              IconSlideAction(
+                caption: 'Editar',
+                color: Colors.lightBlue.shade200,
+                icon: Icons.drive_file_rename_outline,
+                foregroundColor: Colors.lightBlue.shade900,
+                onTap: () => print('File'),
+              ),
+              // IconSlideAction(
+              //   caption: 'File',
+              //   color: Colors.pink,
+              //   icon: Icons.ac_unit_sharp,
+              //   onTap: () => print('File'),
+              // ),
+            ]
           );
         }
     );
