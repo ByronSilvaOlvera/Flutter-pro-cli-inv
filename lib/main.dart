@@ -1,4 +1,5 @@
 
+import 'package:fltestadobloc/services/producto-service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';  
 
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_)=> ClienteServices(), ),
         ChangeNotifierProvider(create: (_)=> ProveedorServices(), ),
+        ChangeNotifierProvider(create: (_)=> ProductoServices(), ),
       ],
       child: MaterialApp(
         title: 'Material App',

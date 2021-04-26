@@ -1,5 +1,6 @@
 
 import 'package:fltestadobloc/pages/list-pages/list-cliente.dart';
+import 'package:fltestadobloc/pages/list-pages/list-productos.dart';
 import 'package:fltestadobloc/pages/list-pages/list-proveedor.dart';
 import 'package:flutter/material.dart';
 
@@ -58,8 +59,8 @@ class _ListaOpcionesBarState extends State<ListaOpcionesBar> with TickerProvider
                 Container(
                   child: ListadoProveedors(),
                 ),
-                Center(
-                  child: Text('three'),
+                Container(
+                  child: ListadoProductos()
                 ),
                 Center(
                   child: Text('four'),

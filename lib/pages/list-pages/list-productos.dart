@@ -2,29 +2,29 @@
 import 'package:flutter/material.dart';
 
 
-import 'package:fltestadobloc/models/proveedor.dart';
+import 'package:fltestadobloc/services/producto-service.dart';
+import 'package:fltestadobloc/models/producto.dart';
 import 'package:fltestadobloc/pages/home_page.dart';
 import 'package:fltestadobloc/widgets/widgets.dart';
 
 
-import 'package:fltestadobloc/services/proveedor-service.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class ListadoProveedors extends StatefulWidget {
+class ListadoProductos extends StatefulWidget {
   
   @override
-  _ListadoProveedorsState createState() => _ListadoProveedorsState();
+  _ListadoProductosState createState() => _ListadoProductosState();
 }
 
-class _ListadoProveedorsState extends State<ListadoProveedors> {
+class _ListadoProductosState extends State<ListadoProductos> {
 
-  final servProveedor = new ProveedorServices();
-  List<Proveedor> proveedors = [];
+  final _servProducto = new ProductoServices();
+  List<Producto> _productos = [];
 
   @override
   void initState()  { 
     super.initState();
-    _cargarProveedor();
+    _cargarProductos();
   }
 
   @override
@@ -37,7 +37,7 @@ class _ListadoProveedorsState extends State<ListadoProveedors> {
             SizedBox(
               height: 25.0,
               child: Center(
-                child: Text('Listados de los Proveedores', 
+                child: Text('Listados de los Productos', 
                     style: TextStyle( color: Colors.blue.shade700, 
                            fontSize: 18.0 ),
                 ), 
@@ -56,29 +56,29 @@ class _ListadoProveedorsState extends State<ListadoProveedors> {
     //double height = MediaQuery.of(context).size.height;
     return ListView.builder(
       padding: EdgeInsets.symmetric(vertical: 7.0) ,
-      itemCount: proveedors.length ,
+      itemCount: _productos.length ,
       itemBuilder: (context , int index){  
         return Slidable(
           actionPane: SlidableScrollActionPane(),
           actionExtentRatio: 1/3,
           child: Card( 
-            color: Colors.green.shade50,
+            color: Colors.orange[100],
             child: ListTile(
-              title   : Text(proveedors[index].nombre +' '+ proveedors[index].apellido ),
-              subtitle: Text('Identificación: ${ proveedors[index].identificacion}') ,
-              leading : Icon(Icons.account_circle_outlined, color: Colors.green.shade700, size: 40.0,),
-              trailing: proveedors[index].estadoregistro != "A" ? Icon(Icons.do_disturb_on_rounded, color: Colors.red.shade700 ) :
+              title   : Text(_productos[index].nombre +' '+ _productos[index].nombre ),
+              subtitle: Text('Presentacion: ${ _productos[index].presentacion}') ,
+              leading : Icon(Icons.category_outlined, color: Colors.orange[700], size: 40.0,),
+              trailing: _productos[index].estadoregistro != "A" ? Icon(Icons.do_disturb_on_rounded, color: Colors.red.shade700 ) :
                             Icon(Icons.done_all, color: Colors.green.shade700 ) ,
             )
           ),
           actions: <Widget>[
             IconSlideAction(
-              caption: proveedors[index].estadoregistro == "A" ? 'Desactivar' : 'Activar',
-              color  : proveedors[index].estadoregistro == "A" ? Colors.red.shade200 : Colors.green.shade200,
-              icon   : proveedors[index].estadoregistro == "A" ? Icons.person_remove_outlined : Icons.emoji_people_sharp,
-              foregroundColor: proveedors[index].estadoregistro == "A" ? Colors.red.shade900 : Colors.green.shade900,
-              onTap: () => _activarDesactivarProveedor(proveedors[index].uid,
-                proveedors[index].estadoregistro == "A" ? 'I' : 'A')                           
+              caption: _productos[index].estadoregistro == "A" ? 'Desactivar' : 'Activar',
+              color  : _productos[index].estadoregistro == "A" ? Colors.red.shade200 : Colors.green.shade200,
+              icon   : _productos[index].estadoregistro == "A" ? Icons.person_remove_outlined : Icons.emoji_people_sharp,
+              foregroundColor: _productos[index].estadoregistro == "A" ? Colors.red.shade900 : Colors.green.shade900,
+              onTap: () => _activarDesactivarProveedor(_productos[index].uid,
+                _productos[index].estadoregistro == "A" ? 'I' : 'A')                           
             ),
           
             IconSlideAction(
@@ -89,7 +89,7 @@ class _ListadoProveedorsState extends State<ListadoProveedors> {
               onTap: () => {
                 Navigator.pushReplacement(context,
                   PageRouteBuilder(
-                    pageBuilder: ( _, __, ___) => HomePage(inicioIndex: 3, id:  proveedors[index].uid, ),
+                    pageBuilder: ( _, __, ___) => HomePage(inicioIndex: 2, id:  _productos[index].uid, ),
                     transitionDuration: Duration(milliseconds: 0)
                   )
                 )
@@ -103,21 +103,21 @@ class _ListadoProveedorsState extends State<ListadoProveedors> {
   }
 
   _activarDesactivarProveedor (String id, String estado) async {
-    final respuesta = await servProveedor.activarEntidad(id, estado);
+    final respuesta = await _servProducto.activarEntidad(id, estado);
     if( respuesta.ok && estado == 'A' ){
       ScaffoldMessenger.of(context).showSnackBar( 
           MsgSnackBar( msg: 'Cliente Activado..!', tipo: 1, ).build(context));
-      _cargarProveedor();
+      _cargarProductos();
     }else{
       ScaffoldMessenger.of(context).showSnackBar( 
           MsgSnackBar( msg: 'Cliente Desactivado..!', tipo: 0, ).build(context));
-      _cargarProveedor();
+      _cargarProductos();
     }
   }
 
 
-  void _cargarProveedor() async {
-    proveedors = await  servProveedor.getEntidad();
+  void _cargarProductos() async {
+    _productos = await  _servProducto.getEntidad();
     setState(() {});
   }
 
