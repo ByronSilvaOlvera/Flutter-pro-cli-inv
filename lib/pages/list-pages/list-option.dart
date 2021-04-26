@@ -1,5 +1,6 @@
 
 import 'package:fltestadobloc/pages/list-pages/list-cliente.dart';
+import 'package:fltestadobloc/pages/list-pages/list-proveedor.dart';
 import 'package:flutter/material.dart';
 
 class ListaOpcionesBar extends StatefulWidget {
@@ -54,8 +55,8 @@ class _ListaOpcionesBarState extends State<ListaOpcionesBar> with TickerProvider
                 Container(
                   child: ListadoCliente(),
                 ),
-                Center(
-                  child: Text('two'),
+                Container(
+                  child: ListadoProveedors(),
                 ),
                 Center(
                   child: Text('three'),

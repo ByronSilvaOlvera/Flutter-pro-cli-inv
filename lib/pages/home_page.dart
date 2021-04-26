@@ -26,6 +26,7 @@ class _HomePageState extends State<HomePage> {
   int index = 0 ;
   bool local = false;
   String _cliente;
+  String _proveedor;
  
  @override
   void initState() {
@@ -34,7 +35,11 @@ class _HomePageState extends State<HomePage> {
     int intPagina = widget.getIndex();
     if ( intPagina > 0 ){
       index = intPagina;
-      _cliente = widget.id;
+      if( intPagina ==  1){
+        _cliente = widget.id;
+      }else if( intPagina == 3){ // 3
+        _proveedor = widget.id;
+      }
     }
   }
 
@@ -101,7 +106,12 @@ class _HomePageState extends State<HomePage> {
       return ProductoPage();
     }
     else if( index == 3 ){
-      return ProveedorPage();
+      if( local ){
+        local = false;
+        return ProveedorPage();      
+      }else{
+        return ProveedorPage(id: _proveedor,);
+      }
     }
     else if( index == 4 ){
       return VentaPage();

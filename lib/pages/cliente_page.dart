@@ -56,7 +56,8 @@ class _ClientePageState extends State<ClientePage> {
       identificacion: identidadCtrl.text,
       direccion     : direccionCtrl.text,
       correo        : correoCtrl.text,
-      uid           : id.text
+      uid           : id.text,
+      estadoregistro: 'A'
     );
     
   }
@@ -185,6 +186,9 @@ class _ClientePageState extends State<ClientePage> {
         ScaffoldMessenger.of(context).showSnackBar( 
           MsgSnackBar( msg: 'Cliente alamcenado exitoso..!', tipo: 1, ).build(context) 
         );
+        _onResetFormulario();
+        _guardar      = true;
+        _nombreMetodo = 'Guardar';
       }else{
         ScaffoldMessenger.of(context).showSnackBar(
           _mensajeBotton(Colors.redAccent.shade200, Icons.error_outline,response.msg)
@@ -198,6 +202,10 @@ class _ClientePageState extends State<ClientePage> {
         ScaffoldMessenger.of(context).showSnackBar( 
           MsgSnackBar( msg: 'Cliente Actualizado exitoso..!', tipo: 1, ).build(context) 
         );
+        _onResetFormulario();
+        _guardar      = true;
+        _nombreMetodo = 'Guardar';
+        setState(() {});
       }else{
         ScaffoldMessenger.of(context).showSnackBar(
           _mensajeBotton(Colors.redAccent.shade200, Icons.error_outline, response.msg)
@@ -205,9 +213,7 @@ class _ClientePageState extends State<ClientePage> {
       }
 
     }
-    _onResetFormulario();
-    _guardar      = true;
-    _nombreMetodo = 'Guardar';
+    
   }
 
 

@@ -1,10 +1,10 @@
 
-import 'package:fltestadobloc/services/cliente-service.dart';
 import 'package:flutter/material.dart';
-
-
-import 'package:fltestadobloc/router/router.dart';
 import 'package:provider/provider.dart';  
+
+import 'package:fltestadobloc/services/cliente-service.dart';
+import 'package:fltestadobloc/services/proveedor-service.dart';
+import 'package:fltestadobloc/router/router.dart';
 
 
 void main() => runApp(MyApp());
@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_)=> ClienteServices(), ),
+        ChangeNotifierProvider(create: (_)=> ProveedorServices(), ),
       ],
       child: MaterialApp(
         title: 'Material App',
