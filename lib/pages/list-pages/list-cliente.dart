@@ -54,47 +54,49 @@ class _ListadoClienteState extends State<ListadoCliente> {
   Widget _listadoClientes(BuildContext context){
     //double height = MediaQuery.of(context).size.height;
     return ListView.builder(
-        itemCount: clientes.length ,
-        itemBuilder: (context , int index){  
-          return Slidable(
-            actionPane: SlidableScrollActionPane(),
-            actionExtentRatio: 1/3,
-            child: Card( 
-              color: Colors.blue.shade50,
-              child: ListTile(
-                title: Text(clientes[index].nombre +' '+ clientes[index].apellido ),
-                subtitle: Text('Identidad #: ${ clientes[index].identificacion}') ,
-                leading: Icon(Icons.account_circle, color: 
-                  Colors.blue.shade700, size: 40.0,),
-                //trailing: Icon(Icons.edit),
-              
-              )
+      padding: EdgeInsets.symmetric(vertical: 7.0) ,
+      itemCount: clientes.length ,
+      itemBuilder: (context , int index){  
+        return Slidable(
+          actionPane: SlidableScrollActionPane(),
+          actionExtentRatio: 1/3,
+          child: Card( 
+            color: Colors.blue.shade50,
+            child: ListTile(
+              title   : Text(clientes[index].nombre +' '+ clientes[index].apellido ),
+              subtitle: Text('Identidad #: ${ clientes[index].identificacion}') ,
+              leading : Icon(Icons.account_circle, color: Colors.blue.shade700, size: 40.0,),
+              trailing: clientes[index].estadoregistro != "A" ? Icon(Icons.do_disturb_on_rounded, color: Colors.red.shade700 ) :
+                            Icon(Icons.done_all, color: Colors.green.shade700 ) ,
+            
+            )
+          ),
+          actions: <Widget>[
+            IconSlideAction(
+              caption: clientes[index].estadoregistro == "A" ? 'Desactivar' : 'Activar',
+              color  : clientes[index].estadoregistro == "A" ? Colors.red.shade200 : Colors.green.shade200,
+              icon   : clientes[index].estadoregistro == "A" ? Icons.person_remove_outlined : Icons.emoji_people_sharp,
+              foregroundColor: clientes[index].estadoregistro == "A" ? Colors.red.shade900 : Colors.green.shade900,
+              onTap: () => {},
             ),
-            actions: <Widget>[
-              IconSlideAction(
-                caption: 'Desactivar',
-                color: Colors.red.shade200,
-                icon: Icons.person_remove_outlined,
-                foregroundColor: Colors.red.shade900,
-                onTap: () => {},
-              ),
-              IconSlideAction(
-                caption: 'Editar',
-                color: Colors.lightBlue.shade200,
-                icon: Icons.drive_file_rename_outline,
-                foregroundColor: Colors.lightBlue.shade900,
-                onTap: () => {
-                  Navigator.pushReplacement(context,
-                    PageRouteBuilder(
-                      pageBuilder: ( _, __, ___) => HomePage(inicioIndex: 1, id:  clientes[index].uid, ),
-                      transitionDuration: Duration(milliseconds: 0)
-                    )
+          
+            IconSlideAction(
+              caption        : 'Editar',
+              color          : Colors.lightBlue.shade200,
+              icon           : Icons.drive_file_rename_outline,
+              foregroundColor: Colors.lightBlue.shade900,
+              onTap: () => {
+                Navigator.pushReplacement(context,
+                  PageRouteBuilder(
+                    pageBuilder: ( _, __, ___) => HomePage(inicioIndex: 1, id:  clientes[index].uid, ),
+                    transitionDuration: Duration(milliseconds: 0)
                   )
-                },
-              ),             
-            ]
-          );
-        }
+                )
+              },
+            ),             
+          ]
+        );
+      }
     );
     
   }
