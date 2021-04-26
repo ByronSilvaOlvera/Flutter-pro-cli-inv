@@ -30,20 +30,20 @@ class ProveedorPage extends StatelessWidget {
           height: 120.0,
           child: CircleAvatar(
             backgroundColor: Colors.green[50],
-            child: Icon(Icons.person_add_outlined, size: 50.0, color: Colors.green.shade600,  ),
+            child: Icon(Icons.person_add_alt_1, size: 50.0, color: Colors.green.shade600,  ),
           ),
         ),
         
         SizedBox(height: 15.0,),
         TextField(
-            obscureText: true,
-            //controller: ,
-            decoration: InputDecoration(
-              icon: Icon(Icons.person),
-              border: OutlineInputBorder(),
-              labelText: 'Nombre',
-            ),
+          obscureText: true,
+          textCapitalization: TextCapitalization.characters,
+          decoration: InputDecoration(
+            icon: Icon(Icons.person),
+            border: OutlineInputBorder(),
+            labelText: 'Nombre',
           ),
+        ),
         SizedBox(height: 15.0,),
         
         

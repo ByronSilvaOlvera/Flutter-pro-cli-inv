@@ -55,15 +55,16 @@ class _ClientePageState extends State<ClientePage> {
       apellido      : apellidoCtrl.text,
       identificacion: identidadCtrl.text,
       direccion     : direccionCtrl.text,
-      correo        : correoCtrl.text    
+      correo        : correoCtrl.text,
+      uid           : id.text
     );
     
   }
 
   _onIniciarCliente() async {
-    print(widget.id);
+    
     if( widget.id.isNotEmpty ){
-      
+      id.text = widget.id;
       _cliente = await _servCliente.getEntidadOne( widget.id );
       if( _cliente != null ){
         nombreCtrl.text    = _cliente.nombre;
@@ -71,8 +72,8 @@ class _ClientePageState extends State<ClientePage> {
         identidadCtrl.text = _cliente.identificacion;
         direccionCtrl.text = _cliente.direccion;
         correoCtrl.text    = _cliente.correo;    
-        _nombreMetodo = 'Editar';
-        _guardar = false;
+        _nombreMetodo      = 'Editar';
+        _guardar           = false;
         setState(() {});
       }
     }
@@ -83,6 +84,7 @@ class _ClientePageState extends State<ClientePage> {
   final identidadCtrl = TextEditingController();
   final direccionCtrl = TextEditingController();
   final correoCtrl    = TextEditingController();
+  final id            = TextEditingController();
 
   Widget _fomulario(){
     return Column(
@@ -160,12 +162,12 @@ class _ClientePageState extends State<ClientePage> {
   Widget _buttonFormulario(BuildContext context){    
     return SizedBox(
       height: 50.0,
-      width: 200.0,
+      width: 230.0,
       child:           
         ElevatedButton.icon(   
           onPressed: () => _metodoAlmacenamiento(context) , 
           icon: Icon(Icons.save, size: 30.0,),
-          label: Text(_nombreMetodo),
+          label: Text(_nombreMetodo, style: TextStyle( fontSize: 18.0 ),),
         ),
     );
   }
@@ -198,12 +200,13 @@ class _ClientePageState extends State<ClientePage> {
         );
       }else{
         ScaffoldMessenger.of(context).showSnackBar(
-          _mensajeBotton(Colors.redAccent.shade200, Icons.error_outline,response.msg)
+          _mensajeBotton(Colors.redAccent.shade200, Icons.error_outline, response.msg)
         );
       }
 
     }
-    _guardar = true;
+    _onResetFormulario();
+    _guardar      = true;
     _nombreMetodo = 'Guardar';
   }
 
@@ -222,9 +225,18 @@ class _ClientePageState extends State<ClientePage> {
   }
 
   @override
-  void dispose() {    
-    //widget.id = '';
+  void dispose() {       
     super.dispose();
   }
+
+  _onResetFormulario(){
+    nombreCtrl.text    = "";
+    apellidoCtrl.text  = "";
+    identidadCtrl.text = "";
+    direccionCtrl.text = "";
+    correoCtrl.text    = "";
+    id.text            = "";
+  }
+
 
 }
