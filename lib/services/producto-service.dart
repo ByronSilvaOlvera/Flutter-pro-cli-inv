@@ -25,9 +25,7 @@ class ProductoServices with ChangeNotifier {
       if (resp.statusCode == 200) {
         final response = EntidadResponse.fromJson( json.decode(resp.body) );
         final List entidad = json.decode(json.encode(response.entidad));
-        // print(entidad);
-        // print(resp.body);
-        // print(json.encode(response.entidad));
+   
         return entidad.map((json) => Producto.fromJson(json)).where( (pro) {
           final nameLower = pro.nombre.toLowerCase();
           final queryLower = textobusqueda.toLowerCase();

@@ -11,15 +11,24 @@ class DetalleListado extends StatefulWidget {
 
 class _DetalleListadoState extends State<DetalleListado> {
   
+  List<Producto> productos  = [];
+  Producto _productoSeleccinado = new Producto(nombre: '');
+  String _busqueda;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10.0),
       child: Column(
-
-        children: [
+        children: <Widget>[
           Text('Auto'),
           _textAutoCompletar(),
+          Expanded(
+            child: _panelSeleccion(),
+          ),
+          Expanded(
+            child : _mostrarProductos(),
+          )  
         ],
       ),
     );
@@ -40,6 +49,8 @@ class _DetalleListadoState extends State<DetalleListado> {
       ),
       // trae la data
       suggestionsCallback: (pattern) async {
+        _busqueda = pattern;
+        print(_busqueda);
         return await ProductoServices.autoCompletarEntidad(pattern);
       } ,
       //devuelve combo box datos
@@ -51,10 +62,14 @@ class _DetalleListadoState extends State<DetalleListado> {
         );
       },
       // Quiero mover al una pagina
-      onSuggestionSelected: (suggestion) {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ProductoDetallePage(product: suggestion)
-        ));
+      onSuggestionSelected: (suggestion) async {
+        // Navigator.of(context).push(MaterialPageRoute(
+        //   builder: (context) => ProductoDetallePage(product: suggestion)
+        // ));
+        // 
+        _productoSeleccinado = suggestion;
+        productos = await ProductoServices.autoCompletarEntidad(_busqueda);
+        setState(() {});
       },
 
       noItemsFoundBuilder: (context) => 
@@ -62,12 +77,41 @@ class _DetalleListadoState extends State<DetalleListado> {
           height: 100,
           child: Center(
             child: Text(
-              'No Users Found.',
+              'Productos no Encontrado.',
               style: TextStyle(fontSize: 24),
             ),
           ),
         ),
 
+    );
+  }
+
+  Widget _panelSeleccion(){
+   // return Container(
+    return  ListView(
+        children: [
+          ListTile(
+            leading: Icon(Icons.map),
+            title: Text( _productoSeleccinado.nombre ),
+          )
+        ],
+      );
+      
+    //);
+  }
+
+  Widget _mostrarProductos(){
+    return ListView.separated(
+      padding: const EdgeInsets.all(8),
+      itemCount: productos.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          height: 50,
+          color: Colors.amber,
+          child: Center(child: Text('Producto ${productos[index].nombre}')),
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) => const Divider(),
     );
   }
 
