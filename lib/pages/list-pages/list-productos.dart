@@ -37,7 +37,7 @@ class _ListadoProductosState extends State<ListadoProductos> {
             SizedBox(
               height: 25.0,
               child: Center(
-                child: Text('Listados de los Productos', 
+                child: Text('Listados de Productos', 
                     style: TextStyle( color: Colors.blue.shade700, 
                            fontSize: 18.0 ),
                 ), 

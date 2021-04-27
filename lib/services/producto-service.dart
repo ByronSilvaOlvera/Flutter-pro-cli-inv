@@ -11,6 +11,40 @@ class ProductoServices with ChangeNotifier {
 
   final hostService = '${Environment.apiUrl}/producto';
 
+
+  static Future<List<Producto>> autoCompletarEntidad(String textobusqueda ) async {
+    try {
+      final hostServices = '${Environment.apiUrl}/producto';
+      final uri = Uri.parse('$hostServices/get') ;
+      final resp = await http.get(uri , 
+            headers: {
+              'Content-type' : 'application/json',       
+            });
+      
+
+      if (resp.statusCode == 200) {
+        final response = EntidadResponse.fromJson( json.decode(resp.body) );
+        final List entidad = json.decode(json.encode(response.entidad));
+        // print(entidad);
+        // print(resp.body);
+        // print(json.encode(response.entidad));
+        return entidad.map((json) => Producto.fromJson(json)).where( (pro) {
+          final nameLower = pro.nombre.toLowerCase();
+          final queryLower = textobusqueda.toLowerCase();
+
+          return nameLower.contains(queryLower);
+        }).toList(); 
+
+      }else{
+        return null;
+      }
+
+    } catch (e) {
+      print('Servcio Producto error $e');
+      return null;
+    }
+  }
+
   Future<EntidadResponse> activarEntidad(String id, String  estado ) async {
     try {
       final uri = Uri.parse('$hostService/edit') ;
