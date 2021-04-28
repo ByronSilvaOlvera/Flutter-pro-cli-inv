@@ -12,7 +12,7 @@ class DetalleListado extends StatefulWidget {
 class _DetalleListadoState extends State<DetalleListado> {
   
   List<Producto> productos  = [];
-  Producto _productoSeleccinado = new Producto(nombre: '');
+  Producto _productoSeleccionado = new Producto(nombre: '');
   String _busqueda;
 
   @override
@@ -23,9 +23,7 @@ class _DetalleListadoState extends State<DetalleListado> {
         children: <Widget>[
           Text('Auto'),
           _textAutoCompletar(),
-          Expanded(
-            child: _panelSeleccion(),
-          ),
+          SizedBox( child : _panelSeleccion(), height: 60.0, width: 300.0,) ,
           Expanded(
             child : _mostrarProductos(),
           )  
@@ -53,6 +51,7 @@ class _DetalleListadoState extends State<DetalleListado> {
         print(_busqueda);
         return await ProductoServices.autoCompletarEntidad(pattern);
       } ,
+
       //devuelve combo box datos
       itemBuilder: (context, suggestion) {
         return ListTile(
@@ -61,20 +60,18 @@ class _DetalleListadoState extends State<DetalleListado> {
           subtitle: Text('\$${suggestion.nombre}'),
         );
       },
+
       // Quiero mover al una pagina
-      onSuggestionSelected: (suggestion) async {
-        // Navigator.of(context).push(MaterialPageRoute(
-        //   builder: (context) => ProductoDetallePage(product: suggestion)
-        // ));
-        // 
-        _productoSeleccinado = suggestion;
+      onSuggestionSelected: (suggestion) async {        
+        _productoSeleccionado = suggestion;
         productos = await ProductoServices.autoCompletarEntidad(_busqueda);
         setState(() {});
       },
 
       noItemsFoundBuilder: (context) => 
         Container(
-          height: 100,
+          padding: EdgeInsets.symmetric(vertical: 15.0),
+          height: 80,
           child: Center(
             child: Text(
               'Productos no Encontrado.',
@@ -89,10 +86,23 @@ class _DetalleListadoState extends State<DetalleListado> {
   Widget _panelSeleccion(){
    // return Container(
     return  ListView(
-        children: [
-          ListTile(
-            leading: Icon(Icons.map),
-            title: Text( _productoSeleccinado.nombre ),
+      padding: EdgeInsets.all(0.0) ,
+        children: <Widget>[
+          
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly ,
+            children: [
+              Expanded(
+                child : ListTile(
+                  contentPadding: EdgeInsets.all(0.0),
+                  leading       : Icon(_productoSeleccionado.nombre.isEmpty ? Icons.search_off : Icons.category_outlined ),
+                  title         : Text( _productoSeleccionado.nombre.isEmpty ? 'Selecctor vacia' : _productoSeleccionado.nombre ),
+                ),
+              ),
+              
+              IconButton(icon: Icon(Icons.done_outline), onPressed: ()=> {})
+              
+            ],
           )
         ],
       );
@@ -106,9 +116,23 @@ class _DetalleListadoState extends State<DetalleListado> {
       itemCount: productos.length,
       itemBuilder: (BuildContext context, int index) {
         return Container(
-          height: 50,
-          color: Colors.amber,
-          child: Center(child: Text('Producto ${productos[index].nombre}')),
+          height: 70,
+          padding: EdgeInsets.all(5.0),
+          color: Colors.amber.shade50,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly ,
+            children : [
+              Expanded(
+
+              child :ListTile(
+                contentPadding: EdgeInsets.symmetric(vertical: 0.0 , horizontal: 5.0 ),
+                title   : Text(productos[index].nombre) ,
+                subtitle: Text(productos[index].presentacion),
+              ),              
+              ),
+              IconButton(icon: Icon(Icons.add_circle_outline ), onPressed: ()=> {} , alignment: Alignment.centerRight,)
+            ]
+          )
         );
       },
       separatorBuilder: (BuildContext context, int index) => const Divider(),
