@@ -37,7 +37,7 @@ class _ListadoClienteState extends State<ListadoCliente> {
             SizedBox(
               height: 25.0,
               child: Center(
-                child: Text('Listados de los Clientes', 
+                child: Text('Listados de los Clientes #$_numerosCliente', 
                     style: TextStyle( color: Colors.blue.shade700, 
                            fontSize: 18.0 ),
                 ), 
@@ -115,9 +115,10 @@ class _ListadoClienteState extends State<ListadoCliente> {
     }
   }
 
-
+  int _numerosCliente = 0;
   void _cargarCliente() async {
     clientes = await  servCliente.getEntidad();
+    _numerosCliente = clientes.length;
     setState(() {});
   }
 

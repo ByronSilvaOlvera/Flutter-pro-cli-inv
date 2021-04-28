@@ -37,7 +37,7 @@ class _ListadoProveedorsState extends State<ListadoProveedors> {
             SizedBox(
               height: 25.0,
               child: Center(
-                child: Text('Listados de los Proveedores', 
+                child: Text('Listados de los Proveedores #$_numeroProveedores', 
                     style: TextStyle( color: Colors.blue.shade700, 
                            fontSize: 18.0 ),
                 ), 
@@ -116,8 +116,10 @@ class _ListadoProveedorsState extends State<ListadoProveedors> {
   }
 
 
+  int _numeroProveedores = 0;
   void _cargarProveedor() async {
     proveedors = await  servProveedor.getEntidad();
+    _numeroProveedores = proveedors.length;
     setState(() {});
   }
 

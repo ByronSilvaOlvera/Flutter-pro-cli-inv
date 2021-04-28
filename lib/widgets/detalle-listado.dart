@@ -17,17 +17,22 @@ class _DetalleListadoState extends State<DetalleListado> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10.0),
-      child: Column(
-        children: <Widget>[
-          Text('Auto'),
-          _textAutoCompletar(),
-          SizedBox( child : _panelSeleccion(), height: 60.0, width: 300.0,) ,
-          Expanded(
-            child : _mostrarProductos(),
-          )  
-        ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Busqueda de articulos') ,
+      ),
+      body: Container(
+        padding: EdgeInsets.all(10.0),
+        child: Column(
+          children: <Widget>[
+
+            _textAutoCompletar(),
+            SizedBox( child : _panelSeleccion(), height: 60.0, width: 300.0,) ,
+            Expanded(
+              child : _mostrarProductos(),
+            )  
+          ],
+        ),
       ),
     );
   }

@@ -37,7 +37,7 @@ class _ListadoProductosState extends State<ListadoProductos> {
             SizedBox(
               height: 25.0,
               child: Center(
-                child: Text('Listados de Productos', 
+                child: Text('Listados de Productos #$_numeroProductos', 
                     style: TextStyle( color: Colors.blue.shade700, 
                            fontSize: 18.0 ),
                 ), 
@@ -115,9 +115,10 @@ class _ListadoProductosState extends State<ListadoProductos> {
     }
   }
 
-
+  int _numeroProductos = 0;
   void _cargarProductos() async {
     _productos = await  _servProducto.getEntidad();
+    _numeroProductos = _productos.length;
     setState(() {});
   }
 
