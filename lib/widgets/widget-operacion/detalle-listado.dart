@@ -1,6 +1,6 @@
 
 
-part of 'widgets.dart';
+part of '../widgets.dart';
 
 class DetalleListado extends StatefulWidget {
   //const DetalleListado({Key key}) : super(key: key);
@@ -22,14 +22,13 @@ class _DetalleListadoState extends State<DetalleListado> {
         title: Text('Busqueda de articulos') ,
       ),
       body: Container(
-        padding: EdgeInsets.all(10.0),
+        padding: EdgeInsets.all(15.0),
         child: Column(
           children: <Widget>[
 
             _textAutoCompletar(),
             SizedBox( child : _panelSeleccion(), height: 60.0, width: 300.0,) ,
-            Expanded(
-              child : _mostrarProductos(),
+            Expanded( child : _mostrarProductos(),
             )  
           ],
         ),

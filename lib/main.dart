@@ -1,4 +1,5 @@
 
+//import 'package:fltestadobloc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';  
 
@@ -11,6 +12,7 @@ import 'package:fltestadobloc/router/router.dart';
 void main() => runApp(MyApp());
  
 class MyApp extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -21,11 +23,11 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Material App',
-
+        locale:  Locale('es') ,
+        
         //comentar TEST
         //home: DetalleDocumento(titulo: 'Compra',),  
-        //home: DetalleListado(),
-        
+        //home: DatosIdentidad(),
         
         //Zona de Rutas
         initialRoute: 'home',

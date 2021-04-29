@@ -16,54 +16,12 @@ class CompraPage extends StatelessWidget {
         padding: EdgeInsets.all(15.0),
         child: Column(
           children: <Widget>[
-            SizedBox(
-              height: 60.0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround ,
-                children: [
-
-                  Expanded(
-                    child: ListTile(
-                      title:Text('Compra #001-001-123456789', 
-                        style: TextStyle( fontSize: 20.0, fontWeight: FontWeight.bold, 
-                        ),
-                        textAlign: TextAlign.left, ),
-                      subtitle: Text('27-04-2021 ', 
-                        style: TextStyle( fontSize: 15.0, fontWeight: FontWeight.bold, 
-                        ),
-                        textAlign: TextAlign.left, ),
-                    ),
-                  ) , 
-
-                  
-                   
-                    Column(
-                      children: [
-                        IconButton(icon: Icon(Icons.account_circle_outlined),
-                          padding: EdgeInsets.zero,
-                           onPressed: ()=>{}),
-                        Center(child: Text('Datos', style: 
-                          TextStyle(fontSize: 10.0 ),
-                        )),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        IconButton(icon: Icon(Icons.add_shopping_cart_sharp),
-                          padding: EdgeInsets.zero, onPressed: ()=>{}),
-                        Center(child: Text('Articulos', style: 
-                          TextStyle(fontSize: 10.0 ),
-                        )),
-                      ],
-                    )
-                ],
-              )
-            ),
             
+            _headerOperacion(context),
+
             _datosSeleccion(),
 
             _compraFormula(),
-
 
           ],          
         ),
@@ -139,6 +97,62 @@ class CompraPage extends StatelessWidget {
 
         ],
       )   ,
+    );
+  }
+
+  Widget _headerOperacion(BuildContext context ){
+    return SizedBox(
+      height: 60.0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround ,
+        children: [
+
+          Expanded(
+            child: ListTile(
+              title:Text('Compra #001-001-123456789', 
+                style: TextStyle( fontSize: 20.0, fontWeight: FontWeight.bold, 
+                ),
+                textAlign: TextAlign.left, ),
+              subtitle: Text('27-04-2021 ', 
+                style: TextStyle( fontSize: 15.0, fontWeight: FontWeight.bold, 
+                ),
+                textAlign: TextAlign.left, ),
+            ),
+          ) , 
+
+            Column(
+              children: [
+                IconButton(icon: Icon(Icons.account_circle_outlined),
+                  padding: EdgeInsets.zero,
+                    onPressed: ()=>{
+                      //IR A CREAR UN DETALLE DE LA COMPRA
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => DatosIdentidad(),
+                      ))
+                    }),
+                Center(child: Text('Datos', style: 
+                  TextStyle(fontSize: 10.0 ),
+                )),
+              ],
+            ),
+            Column(
+              children: [
+                IconButton(icon: Icon(Icons.add_shopping_cart_sharp),
+                  padding: EdgeInsets.zero, onPressed: ()=>{
+
+                    //IR A CREAR UN DETALLE DE LA COMPRA
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ProductoOperacion(),
+                    ))
+                  
+                  }),
+                Center(child: Text('Articulos', style: 
+                  TextStyle(fontSize: 10.0 ),
+                )),
+              ],
+            )
+        ],
+      )
     );
   }
 
