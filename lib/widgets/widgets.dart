@@ -2,12 +2,16 @@
 
 import 'dart:ui';
 
+import 'package:fltestadobloc/models/color-model.dart';
 import 'package:fltestadobloc/services/producto-service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:intl/intl.dart';
+
 //import 'package:provider/provider.dart';
 import 'dart:async';
+import 'package:meta/meta.dart';
 
 import 'package:fltestadobloc/models/producto.dart';
 

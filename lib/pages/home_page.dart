@@ -82,7 +82,16 @@ class _HomePageState extends State<HomePage> {
             local = true;        
           })
         },
-      )
+      ),
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print('hola mundo');
+          //conteo = conteo + 1;
+        }, 
+        
+        child: Icon(Icons.adb_rounded)
+        ),
 
     );
   }

@@ -11,6 +11,38 @@ class ProveedorServices with ChangeNotifier {
 
   final hostService = '${Environment.apiUrl}/proveedor';
 
+  static Future<List<Proveedor>> autoCompletarEntidad(String textobusqueda ) async {
+    try {
+      final hostServices = '${Environment.apiUrl}/proveedor';
+      final uri = Uri.parse('$hostServices/get') ;
+      final resp = await http.get(uri , 
+            headers: {
+              'Content-type' : 'application/json',       
+            });
+      
+
+      if (resp.statusCode == 200) {
+        final response = EntidadResponse.fromJson( json.decode(resp.body) );
+        final List entidad = json.decode(json.encode(response.entidad));
+   
+        return entidad.map((json) => Proveedor.fromJson(json)).where( (pro) {
+          final nameLower = pro.nombre.toLowerCase();
+          final queryLower = textobusqueda.toLowerCase();
+
+          return nameLower.contains(queryLower);
+        }).toList(); 
+
+      }else{
+        return null;
+      }
+
+    } catch (e) {
+      print('Servcio Proveedor error $e');
+      return null;
+    }
+  }
+
+
   Future<EntidadResponse> activarEntidad(String id, String  estado ) async {
     try {
       final uri = Uri.parse('$hostService/edit') ;

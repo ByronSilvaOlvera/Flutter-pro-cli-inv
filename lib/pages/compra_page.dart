@@ -2,6 +2,7 @@
 
 import 'dart:ui';
 
+import 'package:fltestadobloc/models/color-model.dart';
 import 'package:fltestadobloc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 class CompraPage extends StatelessWidget {
@@ -31,14 +32,7 @@ class CompraPage extends StatelessWidget {
 
   Widget _compraFormula(){
     return Column(
-      children: [
-
-        // _datosSeleccion('Seleccione un Articulo', 
-        //   Icon(Icons.add_shopping_cart_sharp), Colors.orange.shade100, Colors.orange ),
-        // SizedBox( height: 5.0 , ),
-        // _datosSeleccion('Datos Compras', 
-        //   Icon(Icons.account_circle_outlined), Colors.green, Colors.green.shade50 ),
-        
+      children: [        
         SizedBox(          
           height: 300.0,
           child: Container(
@@ -85,16 +79,6 @@ class CompraPage extends StatelessWidget {
               ), 
             ) ,
           ),
-
-          // SizedBox(
-          //   width: _w/2,
-          //   height: 70.00,
-          //   child: ListTile(
-          //     title   : Row ( children : [ Icon(Icons.home), Text('Florida Norte') ] ),
-          //     subtitle: Row ( children : [ Icon(Icons.alternate_email), Text('byronsjimb@gmail.com') ] )
-          //   ),            
-          //)
-
         ],
       )   ,
     );
@@ -127,8 +111,24 @@ class CompraPage extends StatelessWidget {
                     onPressed: ()=>{
                       //IR A CREAR UN DETALLE DE LA COMPRA
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => DatosIdentidad(),
-                      ))
+                        builder: (context) => DatosIdentidad( operacion : 
+                          ColorDetalle(
+                            appbarcolor      : Colors.red[400] ,
+                            fondocolor       : Colors.red[50],
+                            iconcolor        : Colors.redAccent,
+                            fechacolor       : Colors.red[100],
+                            fechacoloricon   : Colors.red.shade900,
+                            fechacoloriconbtn: Colors.red,
+                            saveiconcolor    : Colors.amber[700],
+                            titulos          : Titulos(
+                              titulobar      : 'Compra',
+                              tituloone      : 'Datos del Proveedor',
+                              titulotwo      : 'Datos Generales'
+                            )
+                          )  
+                         )
+                        )
+                      )
                     }),
                 Center(child: Text('Datos', style: 
                   TextStyle(fontSize: 10.0 ),
@@ -142,8 +142,24 @@ class CompraPage extends StatelessWidget {
 
                     //IR A CREAR UN DETALLE DE LA COMPRA
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ProductoOperacion(),
-                    ))
+                      builder: (context) => ProductoOperacion( operacion : 
+                        ColorDetalle(
+                          appbarcolor      : Colors.pink[400] ,
+                          fondocolor       : Colors.pink[50],
+                          iconcolor        : Colors.pinkAccent,
+                          fechacolor       : Colors.pink[100],
+                          fechacoloricon   : Colors.pink.shade900,
+                          fechacoloriconbtn: Colors.pink,
+                          saveiconcolor    : Colors.amber[700],
+                          titulos          : Titulos(
+                            titulobar      : 'Compra',
+                            tituloone      : 'Item de Mercaderia',
+                            titulotwo      : 'Datos Generales'
+                          )
+                        )  
+                      ),
+                      )
+                    )
                   
                   }),
                 Center(child: Text('Articulos', style: 

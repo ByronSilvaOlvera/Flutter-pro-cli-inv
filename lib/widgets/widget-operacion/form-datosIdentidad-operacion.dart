@@ -3,23 +3,33 @@
 part of '../widgets.dart';
 
 class DatosIdentidad extends StatefulWidget {
-  //const DatosIdentidad({Key key}) : super(key: key);
+  final ColorDetalle operacion;
+  DatosIdentidad( { @required this.operacion }  );
 
   @override
   _DatosIdentidadState createState() => _DatosIdentidadState();
 }
 
 class _DatosIdentidadState extends State<DatosIdentidad> {
+  ColorDetalle _config = new ColorDetalle();
+
+  @override
+  void initState() {
+
+    super.initState();
+     _config = widget.operacion;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Datos de operacion'),
-        backgroundColor: Colors.red[400] ,
+        title: Text('Datos de operacion ${ _config.titulos.titulobar }'),
+        backgroundColor: _config.appbarcolor ,
       ),
       body: Container(
         height: MediaQuery.of(context).size.height  ,
-        color: Colors.red[50] ,
+        color: _config.fondocolor, // fondo
         padding: EdgeInsets.all(10.0), 
         transformAlignment: Alignment.center ,   
         child: SingleChildScrollView(
@@ -35,7 +45,7 @@ class _DatosIdentidadState extends State<DatosIdentidad> {
       children: [
         IconButton(
           iconSize: 30.0 ,
-          color: Colors.amber,
+          color: _config.saveiconcolor,
           focusColor: Colors.blue,
           padding: EdgeInsets.all(25),
           splashRadius: 30,
@@ -46,7 +56,7 @@ class _DatosIdentidadState extends State<DatosIdentidad> {
         IconButton(
           iconSize: 30.0 ,            
           splashRadius: 30.0 ,
-          color: Colors.red,
+          color: _config.fechacoloriconbtn,
           padding: EdgeInsets.all(25),
           icon: Icon(Icons.close , ), 
           onPressed: ()=>{} ,
@@ -58,7 +68,7 @@ class _DatosIdentidadState extends State<DatosIdentidad> {
 
   Widget _datosDocumento(BuildContext context){
     return Container(      
-      color: Colors.red[50]  ,
+      color: _config.fondocolor  , // fondo
       padding: EdgeInsets.all(15.0),
       child: Card(
         elevation: 10.0 ,
@@ -70,11 +80,13 @@ class _DatosIdentidadState extends State<DatosIdentidad> {
 
                 ListTile(
                   leading: Container( 
-                    child  : Icon(Icons.description_outlined, size: 25 , color: Colors.redAccent , ), 
+                    child  : Icon(Icons.description_outlined, size: 25 , 
+                      color: _config.iconcolor , 
+                    ), 
                     padding: EdgeInsets.all(10.00), 
                   ) ,
-                  title: Text('Documento '),
-                  subtitle: Text('Datos Generales'),
+                  title: Text(_config.titulos.tituloone),
+                  subtitle: Text(_config.titulos.titulotwo),
                 ),
 
                 SizedBox(
@@ -92,12 +104,18 @@ class _DatosIdentidadState extends State<DatosIdentidad> {
                             topRight   :  Radius.circular(32) ,
                           ),
                           child: Container(
-                            color : Colors.red[100] ,
+                            color : _config.fechacolor, // fecha color Colors.red[100] ,
                             child: ListTile(                        
-                              leading: Icon(Icons.calendar_view_day, 
-                                color: Colors.red.shade900) ,
-                              title  : Text(_fecha.toUtc().toString() , 
-                                  style: TextStyle(color: Colors.red.shade900 )
+                              leading: Container(
+                                padding:EdgeInsets.symmetric(vertical: 10.00, horizontal: 4.0),
+                                child: Icon(Icons.today_outlined, 
+                                  color: _config.fechacoloricon),
+                              ) ,
+                              title  : Text('F e c h a'  , 
+                                  style: TextStyle(color: _config.fechacoloricon, fontSize: 12.0 )
+                              ),
+                              subtitle: Text( DateFormat('yyyy-MMM-dd').format(_fecha)  , 
+                                  style: TextStyle(color: _config.fechacoloricon, fontSize: 20.0 ),
                               ),
                             ),
                           ),
@@ -107,7 +125,7 @@ class _DatosIdentidadState extends State<DatosIdentidad> {
                       IconButton(
                         padding: EdgeInsets.all(20.0),
                         splashRadius: 35.0,
-                        icon: Icon(Icons.calendar_today, color: Colors.red ,) , 
+                        icon: Icon(Icons.calendar_today, color: _config.fechacoloriconbtn  ,) , 
                         onPressed: () => _selectDate(context) , //() => {}
                       ),
                       
@@ -126,7 +144,7 @@ class _DatosIdentidadState extends State<DatosIdentidad> {
                   obscureText: false,
                   //controller: nombreCtrl,
                   decoration: InputDecoration(
-                    icon     : Icon(Icons.article , color: Colors.redAccent ),
+                    icon     : Icon(Icons.article , color:  _config.iconcolor ),
                     border   : OutlineInputBorder(),
                     labelText: 'Numero Documento',
                   ),
@@ -138,7 +156,7 @@ class _DatosIdentidadState extends State<DatosIdentidad> {
                   obscureText: false,
                   //controller: nombreCtrl,
                   decoration: InputDecoration(
-                    icon     : Icon(Icons.qr_code , color: Colors.redAccent ),
+                    icon     : Icon(Icons.qr_code , color:  _config.iconcolor ),
                     border   : OutlineInputBorder(),
                     labelText: 'Autorizacion',
                   ),
@@ -173,7 +191,7 @@ class _DatosIdentidadState extends State<DatosIdentidad> {
         //autofocus: true,
         //style:  DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.italic),
         decoration: InputDecoration(
-          prefixIcon: Icon(Icons.search, color: Colors.redAccent),
+          prefixIcon: Icon(Icons.search, color: _config.iconcolor ),
           border: OutlineInputBorder(),
           hintText: 'Proveedor',
         ),
@@ -187,7 +205,7 @@ class _DatosIdentidadState extends State<DatosIdentidad> {
       //devuelve combo box datos
       itemBuilder: (context, suggestion) {
         return ListTile(
-          leading: Icon(Icons.shopping_cart),
+          leading: Icon(Icons.person_pin_circle_outlined),
           title: Text(suggestion.nombre),
           subtitle: Text('\$${suggestion.nombre}'),
         );
