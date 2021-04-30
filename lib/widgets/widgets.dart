@@ -3,7 +3,10 @@
 import 'dart:ui';
 
 import 'package:fltestadobloc/models/color-model.dart';
+import 'package:fltestadobloc/models/compra.dart';
+import 'package:fltestadobloc/models/proveedor.dart';
 import 'package:fltestadobloc/services/producto-service.dart';
+import 'package:fltestadobloc/services/proveedor-service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';

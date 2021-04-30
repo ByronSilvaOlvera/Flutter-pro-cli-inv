@@ -14,7 +14,15 @@ class CompraBloc extends Bloc<ComprasEvent, CompraState> {
   @override
   Stream<CompraState> mapEventToState( ComprasEvent event, ) async* {
      
-      
+    if( event is CrearCompra ){
+      print(event.compra);
+      print( 'Event ' );
+      yield state.copyWith( compra: event.compra );
+    
+    }else if( event is BorrarCompra ){  
+      yield state.estadoInicial();
+
+    }
 
 
   }

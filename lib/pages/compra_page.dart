@@ -2,16 +2,21 @@
 
 import 'dart:ui';
 
+import 'package:fltestadobloc/bloc/compra/compras_bloc.dart';
 import 'package:fltestadobloc/models/color-model.dart';
+import 'package:fltestadobloc/models/compra.dart';
 import 'package:fltestadobloc/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 class CompraPage extends StatelessWidget {
  
 
   @override
   Widget build(BuildContext context) {
     //_w = MediaQuery.of(context).size.width;
-
+    
+    
     return Container(
       child: Padding(
         padding: EdgeInsets.all(15.0),
@@ -85,6 +90,7 @@ class CompraPage extends StatelessWidget {
   }
 
   Widget _headerOperacion(BuildContext context ){
+    final compraBloc =  BlocProvider.of<CompraBloc>(context);
     return SizedBox(
       height: 60.0,
       child: Row(
@@ -108,9 +114,9 @@ class CompraPage extends StatelessWidget {
               children: [
                 IconButton(icon: Icon(Icons.account_circle_outlined),
                   padding: EdgeInsets.zero,
-                    onPressed: ()=>{
+                    onPressed: () async {
                       //IR A CREAR UN DETALLE DE LA COMPRA
-                      Navigator.of(context).push(MaterialPageRoute(
+                      final DatosDocumento data = await Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => DatosIdentidad( operacion : 
                           ColorDetalle(
                             appbarcolor      : Colors.red[400] ,
@@ -128,7 +134,10 @@ class CompraPage extends StatelessWidget {
                           )  
                          )
                         )
-                      )
+                      );
+
+                      compraBloc.add( AddDatosProveedor(data) ) ;
+                      
                     }),
                 Center(child: Text('Datos', style: 
                   TextStyle(fontSize: 10.0 ),
@@ -138,10 +147,11 @@ class CompraPage extends StatelessWidget {
             Column(
               children: [
                 IconButton(icon: Icon(Icons.add_shopping_cart_sharp),
-                  padding: EdgeInsets.zero, onPressed: ()=>{
+                  padding: EdgeInsets.zero, 
+                  onPressed: () async {
 
                     //IR A CREAR UN DETALLE DE LA COMPRA
-                    Navigator.of(context).push(MaterialPageRoute(
+                    final String dt = await Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => ProductoOperacion( operacion : 
                         ColorDetalle(
                           appbarcolor      : Colors.pink[400] ,
@@ -159,7 +169,8 @@ class CompraPage extends StatelessWidget {
                         )  
                       ),
                       )
-                    )
+                    );
+                    print(dt); 
                   
                   }),
                 Center(child: Text('Articulos', style: 

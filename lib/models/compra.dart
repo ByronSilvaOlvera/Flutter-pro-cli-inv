@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+
 List<Compra> compraFromJson(String str) => List<Compra>.from(json.decode(str).map((x) => Compra.fromJson(x)));
 
 String compraToJson(List<Compra> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
@@ -90,4 +91,21 @@ class Detalle {
         "costo"       : costo,
         "totaldetalle": totaldetalle,
     };
+}
+
+
+
+class DatosDocumento{
+  DatosDocumento({
+    this.nombre  ,
+    this.autorizacion,
+    this.documento,
+    this.fecha,
+  });
+
+  String nombre;
+  String autorizacion;
+  String documento;
+  DateTime fecha;
+
 }

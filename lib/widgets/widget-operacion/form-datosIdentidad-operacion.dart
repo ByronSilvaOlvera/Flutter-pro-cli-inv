@@ -4,7 +4,8 @@ part of '../widgets.dart';
 
 class DatosIdentidad extends StatefulWidget {
   final ColorDetalle operacion;
-  DatosIdentidad( { @required this.operacion }  );
+  final DatosDocumento datosIdentidad;
+  DatosIdentidad( { @required this.operacion , this.datosIdentidad}  );
 
   @override
   _DatosIdentidadState createState() => _DatosIdentidadState();
@@ -12,6 +13,7 @@ class DatosIdentidad extends StatefulWidget {
 
 class _DatosIdentidadState extends State<DatosIdentidad> {
   ColorDetalle _config = new ColorDetalle();
+
 
   @override
   void initState() {
@@ -50,7 +52,8 @@ class _DatosIdentidadState extends State<DatosIdentidad> {
           padding: EdgeInsets.all(25),
           splashRadius: 30,
           icon: Icon(Icons.save_alt , ), 
-          onPressed: ()=>{}
+          //ENVIAR DATA
+          onPressed: ()=> _devolverDatos()
         ),
         SizedBox(width: 15.0 ,),
         IconButton(
@@ -59,11 +62,31 @@ class _DatosIdentidadState extends State<DatosIdentidad> {
           color: _config.fechacoloriconbtn,
           padding: EdgeInsets.all(25),
           icon: Icon(Icons.close , ), 
-          onPressed: ()=>{} ,
+          /// SALIR
+          onPressed: ()=> Navigator.of(context).pop(),
         ),
         
       ],
     );
+  }
+
+
+  void _devolverDatos(){
+    if( proveedorCtrl.text.isEmpty || 
+        autorizacionCtrl.text.isEmpty ||
+        documentoNumCtrl.text.isEmpty ){
+          ScaffoldMessenger.of(context).showSnackBar(  
+            MsgSnackBar(msg: "Complete la Información", tipo: 0,).build(context)
+          );
+          return null;
+        }else{
+          Navigator.of(context).pop( DatosDocumento(
+            nombre      : proveedorCtrl.text,
+            autorizacion: autorizacionCtrl.text,
+            documento   : documentoNumCtrl.text,
+            fecha       : _fecha
+          ));
+        }
   }
 
   Widget _datosDocumento(BuildContext context){
@@ -142,7 +165,8 @@ class _DatosIdentidadState extends State<DatosIdentidad> {
                 
                 TextField(
                   obscureText: false,
-                  //controller: nombreCtrl,
+                  controller: documentoNumCtrl ,
+                  keyboardType: TextInputType.numberWithOptions( signed: true ) ,
                   decoration: InputDecoration(
                     icon     : Icon(Icons.article , color:  _config.iconcolor ),
                     border   : OutlineInputBorder(),
@@ -154,7 +178,8 @@ class _DatosIdentidadState extends State<DatosIdentidad> {
 
                 TextField(
                   obscureText: false,
-                  //controller: nombreCtrl,
+                  controller: autorizacionCtrl ,
+                  keyboardType: TextInputType.number ,
                   decoration: InputDecoration(
                     icon     : Icon(Icons.qr_code , color:  _config.iconcolor ),
                     border   : OutlineInputBorder(),
@@ -171,6 +196,8 @@ class _DatosIdentidadState extends State<DatosIdentidad> {
     );
   }
 
+  //######## DATEPCKER #################
+
   DateTime _fecha = DateTime.now();
 
   Future _selectDate(BuildContext context) async {
@@ -184,36 +211,43 @@ class _DatosIdentidadState extends State<DatosIdentidad> {
     
   }
 
+
+  //########### TEXTINPUT PROVEEDOR ###################
+   final proveedorCtrl    = TextEditingController( text: "" );
+   final autorizacionCtrl = TextEditingController( text: "" );
+   final documentoNumCtrl = TextEditingController( text: "" );
+   
   Widget _busquedaIdentidad(){
-    return TypeAheadField<Producto>(
+    return TypeAheadField<Proveedor>(
       hideSuggestionsOnKeyboardHide: false,
       textFieldConfiguration: TextFieldConfiguration(
-        //autofocus: true,
-        //style:  DefaultTextStyle.of(context).style.copyWith(fontStyle: FontStyle.italic),
-        decoration: InputDecoration(
+        controller  :  proveedorCtrl,
+        decoration  : InputDecoration(
           prefixIcon: Icon(Icons.search, color: _config.iconcolor ),
-          border: OutlineInputBorder(),
-          hintText: 'Proveedor',
+          border    : OutlineInputBorder(),
+          hintText  : 'Proveedor',
         ),
       ),
       // trae la data
       suggestionsCallback: (pattern) async {
-
-        return await ProductoServices.autoCompletarEntidad(pattern);
+        
+        return await ProveedorServices.autoCompletarEntidad(pattern);
       } ,
 
       //devuelve combo box datos
       itemBuilder: (context, suggestion) {
         return ListTile(
-          leading: Icon(Icons.person_pin_circle_outlined),
-          title: Text(suggestion.nombre),
+          leading : Icon(Icons.person_pin_circle_outlined),
+          title   : Text(suggestion.nombre),
           subtitle: Text('\$${suggestion.nombre}'),
         );
       },
 
       // Quiero mover al una pagina
-      onSuggestionSelected: (suggestion) async {        
-        setState(() {});
+      onSuggestionSelected: (suggestion) async  {     
+        proveedorCtrl.text =  suggestion.nombre;   
+        
+        //setState(() {});
       },
 
       noItemsFoundBuilder: (context) => 

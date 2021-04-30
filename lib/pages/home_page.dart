@@ -1,4 +1,8 @@
 
+
+
+import 'package:fltestadobloc/bloc/compra/compras_bloc.dart';
+import 'package:fltestadobloc/models/compra.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fltestadobloc/pages/compra_page.dart';
@@ -6,6 +10,8 @@ import 'package:fltestadobloc/pages/list-pages/list-option.dart';
 import 'package:fltestadobloc/pages/producto_page.dart';
 import 'package:fltestadobloc/pages/proveedor_page.dart';
 import 'package:fltestadobloc/pages/venta_page.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'cliente_page.dart';
 import 'inventario.page.dart';
@@ -54,6 +60,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final compraBloc =  BlocProvider.of<CompraBloc>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Sistema de Logistico'),        
@@ -84,14 +92,61 @@ class _HomePageState extends State<HomePage> {
         },
       ),
 
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print('hola mundo');
-          //conteo = conteo + 1;
-        }, 
-        
-        child: Icon(Icons.adb_rounded)
-        ),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end ,
+        children: [
+          FloatingActionButton(
+            heroTag: 'btn-delete',
+            onPressed: () {
+              
+              print(compraBloc.state.compraIniciada);
+              print(compraBloc.state.compra );
+              // DELETE COMPRA
+              compraBloc.add( BorrarCompra( )  );
+
+              print('hola mundo');
+              print(compraBloc.state.compraIniciada);
+              print(compraBloc.state.compra);
+              
+            }, 
+            backgroundColor: Colors.red ,
+            child: Icon(Icons.delete , color: Colors.red[200],)
+          ),
+
+          SizedBox(width: 25.0 ,),
+          
+          FloatingActionButton(
+            heroTag: 'btn-envio',
+            onPressed: () {
+
+              // CREAR COMPRA  
+              final newCompra = new Compra( uid: '123' );
+              compraBloc.add( CrearCompra( newCompra )  );
+              print('hola mundo');
+              print( compraBloc.state.compraIniciada );
+              print( compraBloc.state.compra );
+                  
+            }, 
+             backgroundColor: Colors.green ,
+            child: Icon(Icons.adb_rounded, color : Colors.green[100] )
+          ),
+          SizedBox(width: 25.0 ,),
+          FloatingActionButton(
+            heroTag: 'btn-comprobar',
+            onPressed: () {
+
+             print( compraBloc.state.compra.uid );
+              print( compraBloc.state.compraIniciada );
+              print( compraBloc.state.compra );
+                  
+            }, 
+             backgroundColor: Colors.orange,
+            child: Icon(Icons.ac_unit , color : Colors.green[100] )
+          ),
+
+
+        ],
+      ),
 
     );
   }

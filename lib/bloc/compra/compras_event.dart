@@ -11,7 +11,10 @@ class ActualizarTotales extends ComprasEvent {
 }
 
 //Evento Agregar Datos Proveedor
-class AddDatosProveedor extends ComprasEvent{}
+class AddDatosProveedor extends ComprasEvent{
+  final DatosDocumento datosDocumento;
+  AddDatosProveedor( this.datosDocumento );
+}
 
 
 //Eventos Agregar detalle
@@ -23,6 +26,8 @@ class AgregarDetalle extends ComprasEvent{
 //Eventos Agregar detalle
 class DeleteDetalle extends ComprasEvent{} 
 
+
+
 //Event 
 class CrearCompra extends ComprasEvent { 
   final Compra compra;
@@ -30,6 +35,4 @@ class CrearCompra extends ComprasEvent {
 }
 
 //Eventos Delete
-class BorrarCompra extends ComprasEvent{
-
-}
+class BorrarCompra extends ComprasEvent{}
